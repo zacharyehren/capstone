@@ -16,7 +16,8 @@
     "angular-ui-router": "^0.4.2",
     "hapi": "~16.4.0",
     "inert": "^4.2.0",
-    "path": "^0.4.9"
+    "path": "^0.4.9",
+    "zendesk-node-api": "^1.2.0"
   },
   "engines": {
     "node": ">=6.11.1"

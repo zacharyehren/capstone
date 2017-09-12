@@ -1,8 +1,9 @@
 (function() {
-    function HomeCtrl() {
+    function HomeCtrl(NodeClient) {
+        NodeClient.zendeskTickets();
     }
 
     angular
         .module('capstone')
-        .controller('HomeCtrl', [HomeCtrl]);
+        .controller('HomeCtrl', ['NodeClient', HomeCtrl]);
 })();
