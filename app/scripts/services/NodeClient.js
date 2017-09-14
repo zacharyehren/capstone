@@ -1,5 +1,5 @@
-(function() {
-  function NodeClient() {
+angular.module('capstone', []).
+factory('NodeClient', function() {
     var Zendesk = require('zendesk-node-api');
 
     var NodeClient = {};
@@ -17,8 +17,5 @@
   }
 
   return NodeClient;
-};
-  angular
-    .module('capstone')
-    .factory('NodeClient', [NodeClient]);
-})();
+});
+
