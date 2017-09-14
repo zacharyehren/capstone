@@ -1,19 +1,15 @@
 (function() {
-  function HomeCtrl() {
+  function HomeCtrl(GoogleOauth) {
+    console.log(GoogleOauth.userObject);
 
-    function onSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log('Name: ' + profile.getName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-    }
+    this.signOut = function() {
+      GoogleOauth.signOut();
+    };
 
 
-    window.onSignIn = onSignIn;
   }
 
   angular
     .module('capstone')
-    .controller('HomeCtrl', [HomeCtrl]);
+    .controller('HomeCtrl', ['GoogleOauth', HomeCtrl]);
 })();

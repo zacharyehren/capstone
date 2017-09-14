@@ -13,16 +13,8 @@
 <body>
   <div ng-controller="HomeCtrl as home">
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <a href="" ng-click="home.signOut();">Sign out</a>
   </div>
-  <a href="#" onclick="signOut();">Sign out</a>
-  <script>
-    function signOut() {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function() {
-        console.log('User signed out.');
-      });
-    }
-  </script>
   <ui-view></ui-view>
   <!-- Angular -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
@@ -36,6 +28,7 @@
   <script src="/scripts/app.js"></script>
   <script src="/scripts/controllers/HomeCtrl.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="/scripts/services/GoogleOauth.js"></script>
 </body>
 
 </html>
