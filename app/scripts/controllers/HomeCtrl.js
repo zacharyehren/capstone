@@ -1,6 +1,6 @@
 (function() {
     function HomeCtrl(GoogleOauth, ZenFactory) {
-        ZenFactory.zendeskTicketSubjects();
+        this.ticketSubject = ZenFactory.zendeskTicketSubjects();
 
         // this.listSubjects = ZenFactory.subjects;
         //
