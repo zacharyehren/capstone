@@ -11,9 +11,12 @@
       token: '09C6iAXJzohmkRJY2f9mQB2dW0y70SU3L264KVFr'
     });
 
-    ZenFactory.zendeskTickets = function() {
+    ZenFactory.zendeskTicketSubjects = function() {
       zendesk.tickets.list().then(function(tickets){
-      console.log(tickets);
+        for (var i = 0; i <= tickets.length; i++) {
+          console.log(tickets[i].subject);
+          // subjectArray.push(tickets[i].subject);
+      }
     });
   }
 

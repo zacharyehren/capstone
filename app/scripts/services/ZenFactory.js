@@ -17,6 +17,7 @@
           // subjectArray.push(tickets[i].subject);
       }
     });
+  }
 
   return ZenFactory;
 };
