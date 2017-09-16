@@ -1,8 +1,8 @@
-angular.module('capstone', []).
-factory('NodeClient', function() {
+(function() {
+  function ZenFactory() {
     var Zendesk = require('zendesk-node-api');
 
-    var NodeClient = {};
+    var ZenFactory = {};
 
     var zendesk = new Zendesk({
       url: 'https://bloc-capstone.zendesk.com',
@@ -10,12 +10,15 @@ factory('NodeClient', function() {
       token: '09C6iAXJzohmkRJY2f9mQB2dW0y70SU3L264KVFr'
     });
 
-    NodeClient.zendeskTickets = function() {
+    ZenFactory.zendeskTickets = function() {
       zendesk.tickets.list().then(function(tickets){
-    console.log(tickets);
+      console.log(tickets);
     });
   }
 
-  return NodeClient;
-});
-
+  return ZenFactory;
+};
+  angular
+    .module('capstone')
+    .factory('ZenFactory', [ZenFactory]);
+})();

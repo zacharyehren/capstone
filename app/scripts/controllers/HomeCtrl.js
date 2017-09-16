@@ -1,9 +1,15 @@
 (function() {
-    function HomeCtrl(NodeClient) {
-        NodeClient.zendeskTickets();
+    function HomeCtrl(GoogleOauth, ZenFactory) {
+        ZenFactory.zendeskTickets();
+
+
+        this.signOut = function() {
+          GoogleOauth.signOut();
+        };
+
     }
 
     angular
         .module('capstone')
-        .controller('HomeCtrl', ['NodeClient', HomeCtrl]);
+        .controller('HomeCtrl', ['GoogleOauth', 'ZenFactory', HomeCtrl]);
 })();

@@ -1,6 +1,8 @@
 const Hapi = require('hapi');
 const Inert = require('inert');
 const Path = require('path');
+const Zendesk = require('zendesk-node-api');
+
 
 let connection = {
     port: process.env.PORT || 3000,

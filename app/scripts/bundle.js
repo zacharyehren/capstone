@@ -1,7 +1,9 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function() {
-  function NodeClient() {
+  function ZenFactory() {
     var Zendesk = require('zendesk-node-api');
+
+    var ZenFactory = {};
 
     var zendesk = new Zendesk({
       url: 'https://bloc-capstone.zendesk.com',
@@ -9,16 +11,17 @@
       token: '09C6iAXJzohmkRJY2f9mQB2dW0y70SU3L264KVFr'
     });
 
-    NodeClient.zendeskList = function() {
+    ZenFactory.zendeskTickets = function() {
       zendesk.tickets.list().then(function(tickets){
-    console.log(tickets);
+      console.log(tickets);
     });
   }
 
-  }
+  return ZenFactory;
+};
   angular
     .module('capstone')
-    .factory('NodeClient', [NodeClient]);
+    .factory('ZenFactory', [ZenFactory]);
 })();
 
 },{"zendesk-node-api":178}],2:[function(require,module,exports){
@@ -34885,29 +34888,32 @@ Store.prototype.getAllCookies = function(cb) {
 
 },{}],168:[function(require,module,exports){
 module.exports={
-  "_from": "tough-cookie@~2.3.0",
+  "_args": [
+    [
+      "tough-cookie@2.3.2",
+      "/Users/zacharyehren/Desktop/bloc/capstone"
+    ]
+  ],
+  "_from": "tough-cookie@2.3.2",
   "_id": "tough-cookie@2.3.2",
   "_inBundle": false,
   "_integrity": "sha1-8IH3bkyFcg5sN6X6ztc3FQ2EByo=",
   "_location": "/tough-cookie",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "version",
     "registry": true,
-    "raw": "tough-cookie@~2.3.0",
+    "raw": "tough-cookie@2.3.2",
     "name": "tough-cookie",
     "escapedName": "tough-cookie",
-    "rawSpec": "~2.3.0",
+    "rawSpec": "2.3.2",
     "saveSpec": null,
-    "fetchSpec": "~2.3.0"
+    "fetchSpec": "2.3.2"
   },
-  "_requiredBy": [
-    "/request"
-  ],
+  "_requiredBy": [],
   "_resolved": "https://registry.npmjs.org/tough-cookie/-/tough-cookie-2.3.2.tgz",
-  "_shasum": "f081f76e4c85720e6c37a5faced737150d84072a",
-  "_spec": "tough-cookie@~2.3.0",
-  "_where": "/Users/zacharyehren/Desktop/bloc/capstone/node_modules/request",
+  "_spec": "2.3.2",
+  "_where": "/Users/zacharyehren/Desktop/bloc/capstone",
   "author": {
     "name": "Jeremy Stashewsky",
     "email": "jstashewsky@salesforce.com"
@@ -34915,7 +34921,6 @@ module.exports={
   "bugs": {
     "url": "https://github.com/salesforce/tough-cookie/issues"
   },
-  "bundleDependencies": false,
   "contributors": [
     {
       "name": "Alexander Savin"
@@ -34939,7 +34944,6 @@ module.exports={
   "dependencies": {
     "punycode": "^1.4.1"
   },
-  "deprecated": false,
   "description": "RFC6265 Cookies and Cookie Jar for node.js",
   "devDependencies": {
     "async": "^1.4.2",
