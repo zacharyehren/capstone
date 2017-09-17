@@ -1,5 +1,5 @@
 (function() {
-  function GoogleOauth() {
+  function GoogleOauth(ZenFactory) {
 
     var GoogleOauth = {};
     var userObject;
@@ -12,6 +12,7 @@
         email: profile.getEmail()
       };
       GoogleOauth.userObject = userObject;
+      ZenFactory.zendeskTicketSubjects();
     };
 
 
@@ -32,5 +33,5 @@
 
     angular
       .module('capstone')
-      .factory('GoogleOauth', [GoogleOauth]);
+      .factory('GoogleOauth', ['ZenFactory', GoogleOauth]);
   })();
