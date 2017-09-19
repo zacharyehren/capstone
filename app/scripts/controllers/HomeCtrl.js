@@ -2,7 +2,9 @@
     function HomeCtrl(GoogleOauth, ZenFactory) {
 
         this.listSubjects = ZenFactory;
-        console.log(this.listSubjects);
+        console.log(this.listSubjects.tickets);
+
+        this.user = GoogleOauth;
 
         this.signOut = function() {
           GoogleOauth.signOut();
