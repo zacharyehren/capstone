@@ -1,8 +1,13 @@
 (function() {
     function HomeCtrl(GoogleOauth, ZenFactory) {
-
-        this.listSubjects = ZenFactory;
+      
+        ZenFactory.zendeskTicketSubjects().then(function() {
+          this.listSubjects = ZenFactory.tickets;
+        }.bind(this)
+      );
+        console.log(this.listSubjects);
         console.log(this.listSubjects.tickets);
+
 
         this.user = GoogleOauth;
 

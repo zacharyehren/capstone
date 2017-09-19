@@ -1,5 +1,4 @@
-<h1>WUD UP</h1>
-<h2>Hello, {{ home.user.userObject["name"] }}</h2>
-<h2 ng-repeat="subject in home.listSubjects.tickets">
-  {{ subject["subject"] }}
+<h1>Hello, {{ home.user.userObject["name"] }}</h1>
+<h2 ng-repeat="ticket in home.listSubjects.tickets">
+  {{ ticket["subject"] }}
 </h2>

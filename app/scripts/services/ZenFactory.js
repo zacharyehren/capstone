@@ -11,12 +11,8 @@
     });
 
     ZenFactory.zendeskTicketSubjects = function() {
-      zendesk.tickets.list().then(function(tickets){
+      return zendesk.tickets.list().then(function(tickets){
         ZenFactory.tickets = tickets;
-      //   for (var i = 0; i <= tickets.length; i++) {
-      //     console.log(tickets[i].subject);
-      //     // subjectArray.push(tickets[i].subject);
-      // }
     });
   }
 
