@@ -12,7 +12,6 @@
         email: profile.getEmail()
       };
       GoogleOauth.userObject = userObject;
-      console.log(GoogleOauth.userObject);
       ZenFactory.zendeskTicketSubjects();
     };
 
