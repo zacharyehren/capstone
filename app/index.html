@@ -11,10 +11,7 @@
 </head>
 
 <body>
-  <div ng-controller="HomeCtrl as home">
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <a href="" ng-click="home.signOut();">Sign out</a>
-  </div>
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
   <ui-view></ui-view>
   <!-- Angular -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
