@@ -13,7 +13,7 @@
         method: 'GET',
         url: 'https://travelingyeti.zendesk.com/api/v2/tickets',
         headers: {
-          'Authorization': 'Basic' + window.btoa(client.username + '/token:' + client.token)
+          'Authorization': 'Basic' + " " + window.btoa(client.username + '/token:' + client.token)
         }
       };
 
