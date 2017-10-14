@@ -1,24 +1,32 @@
 (function() {
-  function ZenFactory() {
-    var Zendesk = require('zendesk-node-api');
+  function ZenFactory($http) {
 
     var ZenFactory = {};
 
-    var zendesk = new Zendesk({
-      url: 'https://bloc-capstone.zendesk.com',
-      email: 'zachehren@gmail.com',
-      token: '09C6iAXJzohmkRJY2f9mQB2dW0y70SU3L264KVFr'
-    });
+    var client = {
+      username: 'thetravelingyeti@gmail.com',
+      token: 'SJjEznBljjLwqI95HYSuhpFwPky80dDKB7y0noOl'
+    }
 
     ZenFactory.zendeskTicketSubjects = function() {
-      return zendesk.tickets.list().then(function(tickets){
-        ZenFactory.tickets = tickets;
-    });
+      var displayTickets = {
+        method: 'GET',
+        url: 'https://travelingyeti.zendesk.com/api/v2/tickets',
+        headers: {
+          'Authorization': 'Basic' + window.btoa(client.username + '/token:' + client.token)
+        }
+      };
+
+      $http(displayTickets).then(function successCallback(response) {
+        ZenFactory.tickets = response.data;
+        console.log(ZenFactory.tickets);
+      });
   }
+
 
   return ZenFactory;
 };
   angular
     .module('capstone')
-    .factory('ZenFactory', [ZenFactory]);
+    .factory('ZenFactory', ['$http', ZenFactory]);
 })();
