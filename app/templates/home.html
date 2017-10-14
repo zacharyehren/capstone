@@ -1,5 +1,7 @@
 <a href="" ng-click="home.signOut();">Sign out</a>
 <h1>Hello, {{ home.user.userObject["name"] }}</h1>
-<h2 ng-repeat="ticket in home.listSubjects">
-  {{ ticket["subject"] }}
-</h2>
+<div ng-repeat="ticket in home.ZenFactory.tickets">
+  <h4 ng-repeat="subject in ticket">
+    {{ subject.subject }}
+  </h4>
+</div>
