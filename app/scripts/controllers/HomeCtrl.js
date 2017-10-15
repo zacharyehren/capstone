@@ -1,11 +1,11 @@
 (function() {
-  function HomeCtrl(GoogleOauth, ZenFactory) {
+  function HomeCtrl(GoogleOauth, ZenFactory, $cookies) {
 
     this.ZenFactory = ZenFactory;
 
     this.passTicketId = function(ticketId) {
-      ZenFactory.returnTicket(ticketId);
-      console.log(ticketId);
+      $cookies.put('zendeskTicketId', ticketId);
+      ZenFactory.returnTicket();
     }
 
     this.user = GoogleOauth;
@@ -18,5 +18,5 @@
 
   angular
     .module('capstone')
-    .controller('HomeCtrl', ['GoogleOauth', 'ZenFactory', HomeCtrl]);
+    .controller('HomeCtrl', ['GoogleOauth', 'ZenFactory', '$cookies', HomeCtrl]);
 })();

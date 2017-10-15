@@ -1,12 +1,13 @@
 (function() {
-  function TicketCtrl(ZenFactory) {
+  function TicketCtrl(ZenFactory, $cookies) {
+
+    ZenFactory.ticketRefresh();
 
     this.ZenFactory = ZenFactory;
-    console.log(this.ZenFactory);
 
   }
 
   angular
     .module('capstone')
-    .controller('TicketCtrl', ['ZenFactory', TicketCtrl]);
+    .controller('TicketCtrl', ['ZenFactory', '$cookies', TicketCtrl]);
 })();
