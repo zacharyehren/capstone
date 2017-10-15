@@ -12,6 +12,11 @@
         url: '/',
         controller: 'HomeCtrl as home',
         templateUrl: '/templates/home.html'
+      })
+      .state('ticket', {
+        url: '/ticket',
+        controller: 'TicketCtrl as ticket',
+        templateUrl: '/templates/ticket.html'
       });
   }
 

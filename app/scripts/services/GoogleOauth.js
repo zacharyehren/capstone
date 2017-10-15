@@ -12,7 +12,7 @@
         email: profile.getEmail()
       };
       GoogleOauth.userObject = userObject;
-      ZenFactory.zendeskTicketSubjects();
+      ZenFactory.listTickets();
     };
 
 

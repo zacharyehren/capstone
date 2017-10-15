@@ -3,6 +3,11 @@
 
     this.ZenFactory = ZenFactory;
 
+    this.passTicketId = function(ticketId) {
+      ZenFactory.returnTicket(ticketId);
+      console.log(ticketId);
+    }
+
     this.user = GoogleOauth;
 
     this.signOut = function() {

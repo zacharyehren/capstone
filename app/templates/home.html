@@ -2,6 +2,6 @@
 <h1>Hello, {{ home.user.userObject["name"] }}</h1>
 <div ng-repeat="ticket in home.ZenFactory.tickets">
   <h4 ng-repeat="subject in ticket">
-    {{ subject.subject }}
+    <a ui-sref="ticket" ng-click="home.passTicketId(subject.id)"> {{ subject.subject }} </a>
   </h4>
 </div>
