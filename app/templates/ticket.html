@@ -1,2 +1,9 @@
 <h1 ng-repeat='ticket in ticket.ZenFactory.ticket'> {{ ticket["subject"] }}</h1>
 <h1> {{ ticket.ZenFactory.ticket["subject"] }} </h1>
+
+<div ng-repeat="commentArray in ticket.ZenFactory.comment">
+  <h4 ng-repeat="commentObject in commentArray">
+    {{ commentObject.body }}
+    {{ commentObject.via.source.from.name }}
+  </h4>
+</div>

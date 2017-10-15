@@ -5,7 +5,6 @@
 
     this.passTicketId = function(ticketId) {
       $cookies.put('zendeskTicketId', ticketId);
-      ZenFactory.returnTicket();
     }
 
     this.user = GoogleOauth;
