@@ -3,54 +3,27 @@
 
     var ZenFactory = {};
 
-    var client = {
-      username: 'thetravelingyeti@gmail.com',
-      token: 'SJjEznBljjLwqI95HYSuhpFwPky80dDKB7y0noOl'
-    }
-
     ZenFactory.listTickets = function() {
       var displayTickets = {
         method: 'GET',
-        url: 'https://travelingyeti.zendesk.com/api/v2/tickets',
-        headers: {
-          'Authorization': 'Basic ' + window.btoa(client.username + '/token:' + client.token)
-        }
+        url: 'http://localhost:3000/api/tickets'
       };
 
       $http(displayTickets).then(function successCallback(response) {
+        console.log(response);
         ZenFactory.tickets = response.data;
         console.log(ZenFactory.tickets);
       });
 
 
-// Comments are the responses within the ticket 
-      ZenFactory.returnComments = function() {
-        var commentInfo = {
-          method: 'GET',
-          url: 'https://travelingyeti.zendesk.com/api/v2/tickets/' + $cookies.get('zendeskTicketId') + '/comments',
-          headers: {
-            'Authorization': 'Basic ' + window.btoa(client.username + '/token:' + client.token)
-          }
-        }
-        $http(commentInfo).then(function successCallback(response) {
-          ZenFactory.comment = response.data;
-          console.log(ZenFactory.comment);
-        });
-      }
-
-
     ZenFactory.returnTicket = function() {
       var ticketInfo = {
         method: 'GET',
-        url: 'https://travelingyeti.zendesk.com/api/v2/tickets/' + $cookies.get('zendeskTicketId'),
-        headers: {
-          'Authorization': 'Basic ' + window.btoa(client.username + '/token:' + client.token)
-        }
+        url: 'http://localhost:3000/api/tickets/' + $cookies.get('zendeskTicketId'),
       }
       $http(ticketInfo).then(function successCallback(response) {
         ZenFactory.ticket = response.data;
         console.log(ZenFactory.ticket);
-        ZenFactory.returnComments();
         return ZenFactory.ticket;
       });
     }

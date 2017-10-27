@@ -1,7 +1,7 @@
 <a href="" ng-click="home.signOut();">Sign out</a>
 <h1>Hello, {{ home.user.userObject["name"] }}</h1>
 <div ng-repeat="ticket in home.ZenFactory.tickets">
-  <h4 ng-repeat="subject in ticket">
-    <a ui-sref="ticket" ng-click="home.passTicketId(subject.id)"> {{ subject.subject }} </a>
-  </h4>
+    <a ui-sref="ticket" ng-click="home.passTicketId(ticket.id)">
+      <h4>{{ ticket.subject }}</h4>
+    </a>
 </div>
