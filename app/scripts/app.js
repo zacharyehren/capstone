@@ -17,6 +17,11 @@
         url: '/ticket',
         controller: 'TicketCtrl as ticket',
         templateUrl: '/templates/ticket.html'
+      })
+      .state('newTicket', {
+        url: '/new-ticket',
+        controller: 'NewTicketCtrl as newTicket',
+        templateUrl: '/templates/newTicket.html'
       });
   }
 
