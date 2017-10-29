@@ -15,6 +15,23 @@
         console.log(ZenFactory.tickets);
       });
 
+      ZenFactory.createTicket = function(subject, comment, submitter) {
+        var createTicket = {
+          method: 'POST',
+          url: 'http://localhost:3000/api/tickets',
+          data: {
+            subject: subject,
+            comment: comment,
+            submitter: submitter
+          }
+        };
+
+        $http(createTicket).then(function successCallback(response) {
+          console.log(response);
+          ZenFactory.newTicket = response.data;
+          console.log(ZenFactory.newTicket);
+        });
+      }
 
     ZenFactory.returnTicket = function() {
       var ticketInfo = {
