@@ -10,10 +10,9 @@
       };
 
       $http(displayTickets).then(function successCallback(response) {
-        console.log(response);
         ZenFactory.tickets = response.data;
-        console.log(ZenFactory.tickets);
       });
+    };
 
       ZenFactory.createTicket = function(subject, comment, submitter) {
         var createTicket = {
@@ -21,17 +20,16 @@
           url: 'http://localhost:3000/api/tickets',
           data: {
             subject: subject,
-            comment: comment,
+            comment_body: comment,
             submitter: submitter
           }
         };
 
         $http(createTicket).then(function successCallback(response) {
-          console.log(response);
           ZenFactory.newTicket = response.data;
           console.log(ZenFactory.newTicket);
         });
-      }
+      };
 
     ZenFactory.returnTicket = function() {
       var ticketInfo = {
@@ -40,8 +38,24 @@
       }
       $http(ticketInfo).then(function successCallback(response) {
         ZenFactory.ticket = response.data;
-        console.log(ZenFactory.ticket);
         return ZenFactory.ticket;
+      });
+    }
+
+    ZenFactory.createComment = function(userEmail, commentBody) {
+      var createComment = {
+        method: 'POST',
+        url: 'http://localhost:3000/api/tickets/new_comment',
+        data: {
+          user_email: userEmail,
+          comment_body: commentBody,
+          id: $cookies.get('zendeskTicketId')
+        }
+      };
+
+      $http(createComment).then(function successCallback(response) {
+        ZenFactory.newComment = response.data;
+        console.log(ZenFactory.newComment);
       });
     }
 
@@ -51,10 +65,11 @@
       }
     }
 
-  }
+    return ZenFactory;
 
-  return ZenFactory;
-};
+  };
+
+
   angular
     .module('capstone')
     .factory('ZenFactory', ['$http', '$cookies', ZenFactory]);

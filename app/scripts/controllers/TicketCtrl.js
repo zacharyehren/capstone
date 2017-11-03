@@ -5,6 +5,10 @@
 
     this.ZenFactory = ZenFactory;
 
+    this.createComment = function() {
+      ZenFactory.createComment(this.userEmail, this.commentBody);
+    };
+
   }
 
   angular
