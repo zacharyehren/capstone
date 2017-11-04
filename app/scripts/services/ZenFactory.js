@@ -1,5 +1,5 @@
 (function() {
-  function ZenFactory($http, $cookies) {
+  function ZenFactory($http, $cookies, Upload) {
 
     var ZenFactory = {};
 
@@ -42,14 +42,17 @@
       });
     }
 
-    ZenFactory.createComment = function(userEmail, commentBody) {
+    ZenFactory.createComment = function(userEmail, commentBody, file) {
       var createComment = {
         method: 'POST',
         url: 'http://localhost:3000/api/tickets/new_comment',
         data: {
           user_email: userEmail,
           comment_body: commentBody,
-          id: $cookies.get('zendeskTicketId')
+          id: $cookies.get('zendeskTicketId'),
+          file: Upload.upload({
+            file
+          })
         }
       };
 
@@ -72,5 +75,5 @@
 
   angular
     .module('capstone')
-    .factory('ZenFactory', ['$http', '$cookies', ZenFactory]);
+    .factory('ZenFactory', ['$http', '$cookies', 'Upload', ZenFactory]);
 })();

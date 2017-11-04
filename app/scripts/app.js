@@ -26,6 +26,6 @@
   }
 
   angular
-    .module('capstone', ['ui.router', 'ui.bootstrap', 'ngCookies', 'ngRoute'])
+    .module('capstone', ['ui.router', 'ui.bootstrap', 'ngCookies', 'ngFileUpload', 'ngRoute'])
     .config(config);
 })();
