@@ -11,8 +11,35 @@
 </head>
 
 <body>
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-  <ui-view></ui-view>
+  <div class="local-nav">
+    <div class="logo-container">
+      <div class='str-logo'>
+        <svg height="40px" viewBox="0 0 432 492" width="40px">
+    <g fill-rule="evenodd" fill="none" stroke-width="1" stroke="none">
+    <path d="M427.8,119.90001 L220.2,0.30001 L211.8,0.30001 L4.2,119.90001 L0,126.90001 L0,365.40001 L4.2,372.40001 L211.8,492 L220.2,492 L427.8,372.40001 L432,365.40001 L432,126.90001 L427.8,119.90001 L427.8,119.90001 Z M135.1,230.40001 L161.8,245.90001 L188.5,261.40001 L188.5,261.40001 L215.2,276.90001 L241.9,261.40001 L241.9,261.40001 L268.6,245.90001 L295.3,230.40001 L322.0001,245.90001 L322.0001,276.90001 L322.0001,307.90001 L322.0001,307.90001 L213.6001,370.50001 L105.2001,307.90001 L105.2001,307.90001 L131.9001,292.40001 L131.9001,292.40001 L212.8001,339.50001 L212.8001,308.50001 L158.6001,277.50001 L158.6001,277.50001 L131.9001,262.00001 L105.2001,246.50001 L105.2001,183.90001 L105.2001,183.90001 L213.6001,121.30001 L322.0001,183.90001 L295.3001,199.40001 L268.6001,214.90001 L242,230.40001 L215.3,245.90001 L188.6,230.40001 L161.9,214.90001 L135.2,199.40001 L108.5,183.90001 L135.1,230.40001 L135.1,230.40001 Z" fill="#77E0C1"></path>
+    </g>
+    </svg>
+      </div>
+    </div>
+    <ul class="global-options-container">
+      <li>
+        <a ui-sref="home" class="global-options">Open Tickets</a>
+      </li>
+      <li>
+        <a ui-sref="newTicket" class="global-options">Create Ticket</a>
+      </li>
+    </ul>
+
+    <div ng-controller="IndexCtrl as index">
+      <h4 class="username">{{ index.user.userObject["name"] }}</h4>
+      <div class="g-signin2" data-onsuccess="onSignIn" ng-show="index.signedOut"></div>
+      <a href="" ng-click="index.signOut();" ng-hide="index.signedOut" class="sign-out">Sign out</a>
+    </div>
+
+  </div>
+  <div class="local-content">
+    <ui-view></ui-view>
+  </div>
   <!-- Angular -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
   <!-- AngularUI Router -->
@@ -34,6 +61,7 @@
   <script src="/scripts/controllers/HomeCtrl.js"></script>
   <script src="/scripts/controllers/TicketCtrl.js"></script>
   <script src="/scripts/controllers/NewTicketCtrl.js"></script>
+  <script src="/scripts/controllers/IndexCtrl.js"></script>
 </body>
 
 </html>

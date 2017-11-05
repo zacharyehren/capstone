@@ -1,8 +1,34 @@
-<a href="" ng-click="home.signOut();">Sign out</a>
-<h1>Hello, {{ home.user.userObject["name"] }}</h1>
-  <a ui-sref="newTicket">Create Ticket</a>
-<div ng-repeat="ticket in home.ZenFactory.tickets">
-    <a ui-sref="ticket" ng-click="home.passTicketId(ticket.id)">
-      <h4>{{ ticket.subject }}</h4>
-    </a>
-</div>
+<h2>Open Tickets</h2>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>
+        Title
+      </th>
+      <th>
+        Submitter
+      </th>
+      <th>
+        Date Submitted
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="ticket in home.ZenFactory.tickets">
+        <td>
+          <a ui-sref="ticket" ng-click="home.passTicketId(ticket.id)" class="ticket-title">
+            {{ ticket.subject }}
+          </a>
+        </td>
+        <td>
+          {{ ticket.submitter }}
+        </td>
+        <td>
+          {{ ticket.created_at | date:'mediumDate'  }}
+        </td>
+    </tr>
+
+
+</tbody>
+
+</table>

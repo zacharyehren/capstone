@@ -6,9 +6,9 @@
     this.ZenFactory = ZenFactory;
 
     this.createComment = function() {
+      this.submitted = true;
       ZenFactory.createComment(this.userEmail, this.commentBody);
       location.reload();
-      this.submitted = true;
     };
 
   }

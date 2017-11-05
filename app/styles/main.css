@@ -1,0 +1,103 @@
+ul {
+  list-style-type: none;
+}
+
+li {
+  margin-bottom: 1em;
+}
+
+li a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+li a:focus {
+  outline: none;
+}
+
+h2 {
+  font-size: 32px;
+  font-weight: bold;
+  font-family: 'Metric',sans-serif;
+  margin-bottom: 43px !important;
+}
+
+.local-nav {
+  position: fixed;
+  width: 220px;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: 2;
+  overflow-y: auto;
+  background: #152567;
+  color: #586676;
+}
+
+.local-content {
+  padding: 0 100px 0 300px;
+}
+
+.global-options {
+  color: #99a4d1;
+  font-family: Metric, sans-serif;
+  font-size: 16px;
+  line-height: 1.42857143;
+}
+
+.global-options-container {
+  padding: 0 1em;
+}
+
+.logo-container {
+  padding-top: 1.5em;
+  padding-bottom: 2em;
+  margin-left: 1em;
+}
+
+.username {
+  font-family: Metric,sans-serif;
+  font-size: 20px;
+  color: white;
+  margin-left: 16px;
+  position: fixed;
+  z-index: 3;
+  bottom: 35px;
+}
+
+.abcRioButton, .sign-out {
+  width: 220px !important;
+  position: fixed !important;
+  z-index: 3;
+  bottom: 0 !important;
+}
+
+.abcRioButtonContents {
+  margin-right: 29px !important;
+}
+
+.sign-out {
+  background-color: #fff;
+  color: #757575;
+  margin: auto;
+  text-align: center;
+  height: 36px;
+  padding-top: 7px;
+}
+
+.sign-in-container {
+  left: 0;
+  width: 220px;
+  margin: 0;
+  position: fixed;
+  z-index: 3;
+  bottom: 0;
+  color: #99a4d1;
+  background: #111e55;
+  height: 50px;
+}
+
+.ticket-title {
+  color: #32bf92;
+}

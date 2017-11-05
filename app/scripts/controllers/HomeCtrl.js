@@ -7,12 +7,6 @@
       $cookies.put('zendeskTicketId', ticketId);
     }
 
-    this.user = GoogleOauth;
-
-    this.signOut = function() {
-      GoogleOauth.signOut();
-    };
-
   }
 
   angular
