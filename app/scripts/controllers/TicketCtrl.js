@@ -7,6 +7,8 @@
 
     this.createComment = function() {
       ZenFactory.createComment(this.userEmail, this.commentBody);
+      location.reload();
+      this.submitted = true;
     };
 
   }
