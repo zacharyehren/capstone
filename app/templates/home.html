@@ -16,7 +16,7 @@
   <tbody>
     <tr ng-repeat="ticket in home.ZenFactory.tickets">
         <td>
-          <a ui-sref="ticket" ng-click="home.passTicketId(ticket.id)" class="ticket-title">
+          <a ui-sref="ticket" ng-click="home.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
             {{ ticket.subject }}
           </a>
         </td>

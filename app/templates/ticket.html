@@ -1,23 +1,24 @@
 <div aria-hidden="true" ng-show="ticket.submitted" class="alert alert-success">
   <strong>Well done!</strong> The ticket has been updated.
 </div>
-
-<h1 ng-repeat='ticket in ticket.ZenFactory.ticket'> {{ ticket["subject"] }}</h1>
-<h1> {{ ticket.ZenFactory.ticket["subject"] }} </h1>
-
-<div ng-repeat="commentArray in ticket.ZenFactory.ticket">
-  <h4> {{ commentArray.body }} {{ commentArray.sender }}</h4>
+<h1> {{ ticket.ticketSubject }} </h1>
+<div class="card">
+  <div class="card-block" ng-repeat="commentArray in ticket.ZenFactory.ticket">
+    <h4 class="card-title">{{ commentArray.sender }}</h4>
+    <p class="card-text">{{ commentArray.body }}</p>
+  </div>
 </div>
+
 
 <form>
   <div class="form-group">
-    <h2>Update Ticket</h2>
+    <h3 class="update-ticket">Update Ticket</h3>
     <label>Email</label>
     <input type="text" class="form-control" id="exampleInputEmail1" ng-model="ticket.userEmail" placeholder="Enter your email address">
   </div>
   <div class="form-group">
     <label>Comment Body</label>
-    <textarea class="form-control" id="exampleTextarea" rows="10" ng-model="ticket.commentBody"></textarea>
+    <textarea class="form-control" id="exampleTextarea" rows="5" ng-model="ticket.commentBody"></textarea>
   </div>
   <button type="submit" class="btn btn-primary" ng-click="ticket.createComment()">Submit</button>
 </form>

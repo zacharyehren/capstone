@@ -19,8 +19,10 @@ h2 {
   font-size: 32px;
   font-weight: bold;
   font-family: 'Metric',sans-serif;
-  margin-bottom: 43px !important;
+  margin: 40px 0 !important;
 }
+
+/*right bar */
 
 .local-nav {
   position: fixed;
@@ -98,6 +100,23 @@ h2 {
   height: 50px;
 }
 
+/*home.html*/
+
 .ticket-title {
   color: #32bf92;
+}
+
+/*ticket.html*/
+
+.card-block:nth-child(odd) {
+  background: #f2fafd;
+}
+
+.card-block {
+  border-bottom: solid 1px #d7d9db;
+  padding-top: 1px;
+}
+
+.update-ticket{
+  margin-top: 30px;
 }

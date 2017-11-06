@@ -3,8 +3,9 @@
 
     this.ZenFactory = ZenFactory;
 
-    this.passTicketId = function(ticketId) {
+    this.passTicketInfo = function(ticketId, ticketSubject) {
       $cookies.put('zendeskTicketId', ticketId);
+      $cookies.put('zendeskTicketSubject', ticketSubject)
     }
 
   }
