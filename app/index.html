@@ -32,8 +32,7 @@
 
     <div ng-controller="IndexCtrl as index">
       <h4 class="username">{{ index.user.userObject["name"] }}</h4>
-      <div class="g-signin2" data-onsuccess="onSignIn" ng-show="index.signedOut"></div>
-      <a href="" ng-click="index.signOut();" ng-hide="index.signedOut" class="sign-out">Sign out</a>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
 
   </div>

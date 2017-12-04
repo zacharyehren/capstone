@@ -7,7 +7,6 @@
 
     this.signOut = function() {
       GoogleOauth.signOut();
-      this.signedOut = true;
     };
 
   }
