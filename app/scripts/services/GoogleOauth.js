@@ -7,12 +7,17 @@
 
     function onSignIn(googleUser) {
       profile = googleUser.getBasicProfile();
-      userObject = {
-        name: profile.getName(),
-        email: profile.getEmail()
+      domain = googleUser.getHostedDomain();
+      if (domain == "sharethrough.com") {
+        userObject = {
+          name: profile.getName(),
+          email: profile.getEmail()
+        };
+        GoogleOauth.userObject = userObject;
+        ZenFactory.listTickets();
+      } else {
+        alert("You don't have access!");
       };
-      GoogleOauth.userObject = userObject;
-      ZenFactory.listTickets();
     };
 
 
