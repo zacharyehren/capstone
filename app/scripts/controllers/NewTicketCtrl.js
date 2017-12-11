@@ -3,6 +3,7 @@
 
     this.ZenFactory = ZenFactory;
     this.user = GoogleOauth;
+    this.submitter = $cookies.get('zendeskUserEmail');
 
     this.createTicket = function() {
       ZenFactory.createTicket(this.subject, this.comment, this.submitter);

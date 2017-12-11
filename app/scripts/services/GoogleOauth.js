@@ -1,5 +1,5 @@
 (function() {
-  function GoogleOauth(ZenFactory) {
+  function GoogleOauth(ZenFactory, $cookies) {
 
     var GoogleOauth = {};
     var userObject;
@@ -13,10 +13,13 @@
           name: profile.getName(),
           email: profile.getEmail()
         };
+
         GoogleOauth.userObject = userObject;
+        $cookies.put('zendeskUserEmail', userObject.email);
         ZenFactory.listTickets();
       } else {
-        alert("You don't have access!");
+        alert("Only Sharethrough emails have access.");
+        GoogleOauth.signOut();
       };
     };
 
@@ -36,5 +39,5 @@
 
     angular
       .module('capstone')
-      .factory('GoogleOauth', ['ZenFactory', GoogleOauth]);
+      .factory('GoogleOauth', ['ZenFactory', '$cookies', GoogleOauth]);
   })();
