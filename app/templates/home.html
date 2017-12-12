@@ -1,5 +1,5 @@
 <h2>Open Tickets</h2>
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped platform-spacing">
   <thead>
     <tr>
       <th>
@@ -15,20 +15,21 @@
   </thead>
   <tbody>
     <tr ng-repeat="ticket in home.ZenFactory.tickets">
-        <td>
-          <a ui-sref="ticket" ng-click="home.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
+      <td>
+        <a ui-sref="ticket" ng-click="home.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
             {{ ticket.subject }}
           </a>
-        </td>
-        <td>
-          {{ ticket.submitter }}
-        </td>
-        <td>
-          {{ ticket.created_at | date:'mediumDate'  }}
-        </td>
+      </td>
+      <td>
+        {{ ticket.submitter }}
+      </td>
+      <td>
+        {{ ticket.created_at | date:'mediumDate' }}
+      </td>
     </tr>
 
 
-</tbody>
+  </tbody>
 
 </table>
+<div class="bottom-space"></div>
