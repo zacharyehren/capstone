@@ -14,14 +14,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="ticket in home.ZenFactory.tickets">
+    <tr ng-repeat="ticket in home.ZenFactory.csm_data.ticket" ng-init="users = home.ZenFactory.csm_data.users">
       <td>
         <a ui-sref="ticket" ng-click="home.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
             {{ ticket.subject }}
           </a>
       </td>
       <td>
-        {{ ticket.submitter }}
+        {{ users[ticket.submitter] }}
       </td>
       <td>
         {{ ticket.created_at | date:'mediumDate' }}

@@ -5,7 +5,10 @@
 <div class="card">
   <div class="card-block" ng-repeat="commentArray in ticket.ZenFactory.ticket">
     <h4 class="card-title">{{ commentArray.sender }}</h4>
-    <p class="card-text">{{ commentArray.body }}</p>
+
+    <p class="card-text"> <pre>
+
+    {{ commentArray.body }}</pre></p>
   </div>
 </div>
 

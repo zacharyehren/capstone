@@ -10,7 +10,9 @@
       };
 
       $http(displayTickets).then(function successCallback(response) {
-        ZenFactory.tickets = response.data;
+        ZenFactory.csm_data = response.data;
+        // console.log(ZenFactory.tickets);
+        console.log(ZenFactory.csm_data);
       });
     };
 
