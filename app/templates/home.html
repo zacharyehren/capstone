@@ -11,6 +11,12 @@
       <th>
         Date Submitted
       </th>
+      <th>
+        Last Updated
+      </th>
+      <th>
+        Ticket Status*
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -26,10 +32,15 @@
       <td>
         {{ ticket.created_at | date:'mediumDate' }}
       </td>
+      <td>
+        {{ ticket.updated_at | date:'mediumDate' }}
+      </td>
+      <td>
+        {{ ticket.status }}
+      </td>
     </tr>
-
-
   </tbody>
+  
 
 </table>
 <div class="bottom-space"></div>
