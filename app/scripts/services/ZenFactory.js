@@ -15,14 +15,14 @@
       });
     };
 
-      ZenFactory.createTicket = function(subject, comment, submitter) {
+      ZenFactory.createTicket = function(subject, comment) {
         var createTicket = {
           method: 'POST',
           url: 'http://localhost:3000/api/tickets',
           data: {
             subject: subject,
             comment_body: comment,
-            submitter: submitter
+            submitter: $cookies.get('zendeskUserEmail')
           }
         };
 
@@ -43,12 +43,12 @@
       });
     }
 
-    ZenFactory.createComment = function(userEmail, commentBody) {
+    ZenFactory.createComment = function(commentBody) {
       var createComment = {
         method: 'POST',
         url: 'http://localhost:3000/api/tickets/new_comment',
         data: {
-          user_email: userEmail,
+          user_email: $cookies.get('zendeskUserEmail'),
           comment_body: commentBody,
           id: $cookies.get('zendeskTicketId')
         }

@@ -7,11 +7,9 @@
 
     this.ticketSubject = $cookies.get('zendeskTicketSubject')
 
-    this.userEmail = $cookies.get('zendeskUserEmail');
-
     this.createComment = function() {
       this.submitted = true;
-      ZenFactory.createComment(this.userEmail, this.commentBody);
+      ZenFactory.createComment(this.commentBody);
       location.reload();
     };
 
