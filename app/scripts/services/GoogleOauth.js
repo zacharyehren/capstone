@@ -16,6 +16,7 @@
 
         GoogleOauth.userObject = userObject;
         $cookies.put('zendeskUserEmail', userObject.email);
+        $cookies.put('zendeskUserName', userObject.name);
         ZenFactory.listTickets();
       } else {
         alert("Only Sharethrough emails have access.");

@@ -22,7 +22,8 @@
           data: {
             subject: subject,
             comment_body: comment,
-            submitter: $cookies.get('zendeskUserEmail')
+            submitter_email: $cookies.get('zendeskUserEmail'),
+            submitter_name: $cookies.get('zendeskUserName')
           }
         };
 
