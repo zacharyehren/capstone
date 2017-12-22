@@ -11,7 +11,18 @@
 
       $http(displayTickets).then(function successCallback(response) {
         ZenFactory.csm_data = response.data;
-        console.log(ZenFactory.csm_data);
+      });
+    };
+
+    ZenFactory.listClosedTickets = function() {
+      var displayClosedTickets = {
+        method: 'GET',
+        url: 'http://localhost:3000/api/tickets/recently_closed_tickets'
+      };
+
+      $http(displayClosedTickets).then(function successCallback(response) {
+        ZenFactory.csmClosedTicketData = response.data;
+        console.log(ZenFactory.csmClosedTicketData);
       });
     };
 

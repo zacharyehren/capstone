@@ -18,6 +18,11 @@
         controller: 'TicketCtrl as ticket',
         templateUrl: '/templates/ticket.html'
       })
+      .state('closedTickets', {
+        url: '/closed-tickets',
+        controller: 'ClosedTicketCtrl as closedTickets',
+        templateUrl: '/templates/closedTickets.html'
+      })
       .state('newTicket', {
         url: '/new-ticket',
         controller: 'NewTicketCtrl as newTicket',
