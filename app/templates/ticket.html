@@ -1,14 +1,11 @@
 <div aria-hidden="true" ng-show="ticket.submitted" class="alert alert-success">
   <strong>Well done!</strong> The ticket has been updated.
 </div>
-<h1> {{ ticket.ticketSubject }} </h1>
+<h1 class="ticket-page-title"> {{ ticket.ticketSubject }} </h1>
 <div class="card">
   <div class="card-block" ng-repeat="commentArray in ticket.ZenFactory.ticket">
-    <h4 class="card-title">{{ commentArray.sender }}</h4>
-
-    <p class="card-text"> <pre>
-
-    {{ commentArray.body }}</pre></p>
+    <h4 class="card-title">Sender: {{ commentArray.sender }} <br /> {{ commentArray.created_at | date:'mediumDate'}}</h4>
+    <pre class="ticket-body"><{{ commentArray.body }}</pre>
   </div>
 </div>
 
