@@ -17,7 +17,7 @@
     ZenFactory.listClosedTickets = function() {
       var displayClosedTickets = {
         method: 'GET',
-        url: 'http://localhost:3000/api/tickets/recently_closed_tickets'
+        url: 'http://localhost:3000/api/closed_tickets'
       };
 
       $http(displayClosedTickets).then(function successCallback(response) {

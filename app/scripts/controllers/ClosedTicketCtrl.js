@@ -2,7 +2,8 @@
   function ClosedTicketCtrl(GoogleOauth, ZenFactory, $cookies) {
 
     ZenFactory.listClosedTickets();
-    // this.ZenFactory = ZenFactory;
+
+    this.ZenFactory = ZenFactory;
 
     this.passTicketInfo = function(ticketId, ticketSubject) {
       $cookies.put('zendeskTicketId', ticketId);

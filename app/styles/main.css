@@ -124,3 +124,24 @@ h2 {
 .update-ticket{
   margin-top: 30px;
 }
+
+.card-title {
+  padding: 9.5px;
+  font-size: 18px !important;
+}
+
+.ticket-body.ng-binding {
+  font-family: inherit;
+  background: none;
+  border: none;
+  font-size: 15px;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+.ticket-page-title {
+  font-size: 30px;
+}
