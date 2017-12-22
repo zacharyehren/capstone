@@ -1,4 +1,4 @@
-<h2>Open Tickets</h2>
+<h2>Closed Tickets (Past Two Weeks)</h2>
 <table class="table table-bordered table-striped platform-spacing">
   <thead>
     <tr>
@@ -16,5 +16,23 @@
       </th>
     </tr>
   </thead>
+  <tbody>
+    <tr ng-repeat="ticket in closedTickets.ZenFactory.csmClosedTicketData.ticket" ng-init="users = closedTickets.ZenFactory.csmClosedTicketData.users">
+      <td>
+        <a ui-sref="ticket" ng-click="closedTickets.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
+            {{ ticket.subject }}
+          </a>
+      </td>
+      <td>
+        {{ users[ticket.submitter] }}
+      </td>
+      <td>
+        {{ ticket.created_at | date:'mediumDate' }}
+      </td>
+      <td>
+        {{ ticket.updated_at | date:'mediumDate' }}
+      </td>
+    </tr>
+  </tbody>
 </table>
 <div class="bottom-space"></div>
