@@ -22,7 +22,6 @@
 
       $http(displayClosedTickets).then(function successCallback(response) {
         ZenFactory.csmClosedTicketData = response.data;
-        console.log(ZenFactory.csmClosedTicketData);
       });
     };
 
@@ -51,6 +50,7 @@
       }
       $http(ticketInfo).then(function successCallback(response) {
         ZenFactory.ticket = response.data;
+        ZenFactory.ticket.loading = false;
         return ZenFactory.ticket;
       });
     }

@@ -2,6 +2,7 @@
   function TicketCtrl(ZenFactory, $cookies) {
 
     ZenFactory.ticketRefresh();
+    this.loading = true;
 
     this.ZenFactory = ZenFactory;
 
