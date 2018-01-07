@@ -110,6 +110,14 @@ h2 {
   color: #32bf92;
 }
 
+.jumbotron {
+  background: #f9f9f9 !important;
+}
+
+.jumbo-text {
+  margin-left: 7px;
+}
+
 /*ticket.html*/
 
 .card-block:nth-child(odd) {

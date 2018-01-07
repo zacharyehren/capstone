@@ -21,12 +21,12 @@
     </svg>
       </div>
     </div>
-    <ul class="global-options-container">
+    <ul class="global-options-container" ng-controller="IndexCtrl as index">
       <li>
         <a ui-sref="home" class="global-options">Open Tickets</a>
       </li>
-      <li>
-        <a ui-sref="closedTickets" class="global-options">Recently Closed Tickets</a>
+      <li >
+        <a ui-sref="closedTickets" ng-if="index.userSignedIn()" class="global-options">Recently Closed Tickets</a>
       </li>
       <li>
         <a ui-sref="newTicket" class="global-options">Create Ticket</a>
