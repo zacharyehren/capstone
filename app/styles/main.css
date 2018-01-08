@@ -118,6 +118,15 @@ h2 {
   margin-left: 7px;
 }
 
+.alert-box {
+  margin-top: 10px;
+}
+
+.alert-text {
+  margin: auto;
+  text-align: center;
+}
+
 /*ticket.html*/
 
 .card-block:nth-child(odd) {

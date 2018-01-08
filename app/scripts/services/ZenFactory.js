@@ -26,6 +26,21 @@
       });
     };
 
+    ZenFactory.listMyTickets = function() {
+      var displayMyTickets = {
+        method: 'GET',
+        url: 'http://localhost:3000/api/my_tickets',
+        data: {
+          submitter_email: $cookies.get('zendeskUserEmail')
+        }
+      };
+
+      $http(displayMyTickets).then(function successCallback(response) {
+        ZenFactory.myTicketData = response.data;
+        console.log(ZenFactory.myTicketData);
+      });
+    };
+
       ZenFactory.createTicket = function(subject, comment) {
         var createTicket = {
           method: 'POST',

@@ -26,6 +26,9 @@
         <a ui-sref="home" class="global-options">Open Tickets</a>
       </li>
       <li >
+        <a ui-sref="myTickets" ng-if="index.userSignedIn()" class="global-options">My Tickets</a>
+      </li>
+      <li >
         <a ui-sref="closedTickets" ng-if="index.userSignedIn()" class="global-options">Recently Closed Tickets</a>
       </li>
       <li>
@@ -65,6 +68,7 @@
   <script src="/scripts/controllers/NewTicketCtrl.js"></script>
   <script src="/scripts/controllers/IndexCtrl.js"></script>
   <script src="/scripts/controllers/ClosedTicketCtrl.js"></script>
+  <script src="/scripts/controllers/MyTicketCtrl.js"></script>
 </body>
 
 </html>

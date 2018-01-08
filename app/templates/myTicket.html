@@ -1,16 +1,9 @@
-<div class="alert alert-danger alert-box" ng-show="home.userSignedIn()">
-  <h4 class="alert-text">Please sign in with Sharethrough email to view tickets</h4>
-</div>
-
-<h2>Open Tickets</h2>
+<h2>My Tickets</h2>
 <table class="table table-bordered table-striped platform-spacing">
   <thead>
     <tr>
       <th>
         Title
-      </th>
-      <th>
-        Submitter
       </th>
       <th>
         Date Submitted
@@ -24,14 +17,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="ticket in home.ZenFactory.csm_data.ticket" ng-init="users = home.ZenFactory.csm_data.users">
+    <tr ng-repeat="ticket in myTickets.ZenFactory.myTicketData.ticket">
       <td>
-        <a ui-sref="ticket" ng-click="home.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
+        <a ui-sref="ticket" ng-click="myTickets.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
             {{ ticket.subject }}
           </a>
-      </td>
-      <td>
-        {{ users[ticket.submitter] }}
       </td>
       <td>
         {{ ticket.created_at | date:'mediumDate' }}
@@ -45,9 +35,6 @@
     </tr>
   </tbody>
 </table>
-
-</table>
-<div ng-hide="home.userSignedIn()">
 <h3>*Ticket Status key</h3>
 <table class="table table-bordered table-striped">
   <th>
@@ -71,5 +58,4 @@
     </td>
   </tr>
 </table>
-</div>
 <div class="bottom-space"></div>
