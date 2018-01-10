@@ -15,6 +15,11 @@
 
     this.signOut = function() {
       GoogleOauth.signOut();
+      var cookies = $cookies.getAll();
+        angular.forEach(cookies, function (value, key) {
+          $cookies.remove(key);
+        });
+        window.location = '/';
     };
 
   }
