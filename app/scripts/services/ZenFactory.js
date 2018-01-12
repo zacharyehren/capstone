@@ -9,7 +9,7 @@
         url: 'http://localhost:3000/api/tickets'
       };
 
-      $http(displayTickets).then(function successCallback(response) {
+      return $http(displayTickets).then(function successCallback(response) {
         ZenFactory.csm_data = response.data;
       });
     };
