@@ -1,7 +1,13 @@
 (function() {
   function MyTicketCtrl(GoogleOauth, ZenFactory, $cookies) {
+    this.loading = true;
 
-    ZenFactory.listMyTickets();
+    var myTicketsHandler = function(){
+      this.loading = false;
+    }
+    myTicketsHandler = myTicketsHandler.bind(this);
+
+    ZenFactory.listMyTickets().then(myTicketsHandler);
 
     this.ZenFactory = ZenFactory;
 

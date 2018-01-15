@@ -1,7 +1,15 @@
 (function() {
   function ClosedTicketCtrl(GoogleOauth, ZenFactory, $cookies) {
 
-    ZenFactory.listClosedTickets();
+    this.loading = true;
+
+    var closedTicketsHandler = function(){
+      this.loading = false;
+    }
+
+    closedTicketsHandler = closedTicketsHandler.bind(this);
+
+    ZenFactory.listClosedTickets().then(closedTicketsHandler);
 
     this.ZenFactory = ZenFactory;
 

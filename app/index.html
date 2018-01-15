@@ -23,10 +23,10 @@
     </div>
     <ul class="global-options-container" ng-controller="IndexCtrl as index">
       <li>
-        <a ui-sref="home" class="global-options">Open Tickets</a>
+        <a ui-sref="home" class="global-options">All Unsolved Tickets</a>
       </li>
       <li>
-        <a ui-sref="myTickets" ng-if="index.userSignedIn()" class="global-options">My Tickets</a>
+        <a ui-sref="myTickets" ng-if="index.userSignedIn()" class="global-options">My Unsolved Tickets</a>
       </li>
       <li>
         <a ui-sref="closedTickets" ng-if="index.userSignedIn()" class="global-options">Recently Closed Tickets</a>

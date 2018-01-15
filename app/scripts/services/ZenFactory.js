@@ -20,7 +20,7 @@
         url: 'http://localhost:3000/api/closed_tickets'
       };
 
-      $http(displayClosedTickets).then(function successCallback(response) {
+      return $http(displayClosedTickets).then(function successCallback(response) {
         ZenFactory.csmClosedTicketData = response.data;
       });
     };
@@ -34,7 +34,7 @@
         }
       };
 
-      $http(displayMyTickets).then(function successCallback(response) {
+      return $http(displayMyTickets).then(function successCallback(response) {
         ZenFactory.myTicketData = response.data;
       });
     };
