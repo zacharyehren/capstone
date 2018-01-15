@@ -39,7 +39,6 @@
 
         $http(createTicket).then(function successCallback(response) {
           ZenFactory.newTicket = response.data;
-          console.log(ZenFactory.newTicket);
         });
       };
 
@@ -48,10 +47,8 @@
         method: 'GET',
         url: 'http://localhost:3000/api/tickets/' + $cookies.get('zendeskTicketId'),
       }
-      $http(ticketInfo).then(function successCallback(response) {
+      return $http(ticketInfo).then(function successCallback(response) {
         ZenFactory.ticket = response.data;
-        ZenFactory.ticket.loading = false;
-        return ZenFactory.ticket;
       });
     }
 
