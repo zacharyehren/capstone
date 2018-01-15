@@ -36,7 +36,6 @@
 
       $http(displayMyTickets).then(function successCallback(response) {
         ZenFactory.myTicketData = response.data;
-        console.log(ZenFactory.myTicketData);
       });
     };
 

@@ -1,4 +1,4 @@
-<div class="alert alert-danger alert-box" ng-show="home.userSignedIn()">
+<div class="alert alert-danger alert-box" ng-show="home.userSignedOut()">
   <h4 class="alert-text">Please sign in with Sharethrough email to view tickets</h4>
 </div>
 
@@ -49,7 +49,7 @@
 </table>
 
 </table>
-<div ng-hide="home.userSignedIn()">
+<div ng-hide="home.userSignedOut()">
 <h3>*Ticket Status key</h3>
 <table class="table table-bordered table-striped">
   <th>

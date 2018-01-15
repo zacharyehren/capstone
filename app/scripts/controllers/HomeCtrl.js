@@ -1,7 +1,7 @@
 (function() {
   function HomeCtrl(GoogleOauth, ZenFactory, $cookies) {
 
-    this.userSignedIn  = function() {
+    this.userSignedOut  = function() {
       if ($cookies.get('zendeskUserEmail') != undefined) {
         return false;
       } else {
@@ -17,7 +17,15 @@
 
     listTicketsHandler = listTicketsHandler.bind(this);
 
-    ZenFactory.listTickets().then(listTicketsHandler);
+    var signedInTicketReturn = function() {
+      if ($cookies.get('zendeskUserEmail') != undefined) {
+        ZenFactory.listTickets().then(listTicketsHandler);
+      } else {
+        listTicketsHandler();
+      }
+    };
+
+    signedInTicketReturn();
 
     this.ZenFactory = ZenFactory;
 
