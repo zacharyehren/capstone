@@ -1,11 +1,21 @@
 (function() {
   function TicketCtrl(ZenFactory, $cookies) {
 
-    ZenFactory.ticketRefresh();
+    this.loading = true;
+
+    var listTicketHandler = function(){
+      this.loading = false;
+    }
+
+    listTicketHandler = listTicketHandler.bind(this);
+
+    ZenFactory.returnTicket().then(listTicketHandler);
 
     this.ZenFactory = ZenFactory;
 
     this.ticketSubject = $cookies.get('zendeskTicketSubject')
+
+    ZenFactory.ticketRefresh();
 
     this.createComment = function() {
       this.submitted = true;

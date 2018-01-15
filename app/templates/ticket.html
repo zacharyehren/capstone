@@ -1,5 +1,6 @@
+<ng-include src="'/templates/loading.html'" ng-show="ticket.loading"></ng-include>
 <div aria-hidden="true" ng-show="ticket.submitted" class="alert alert-success">
-  <strong>Well done!</strong> The ticket has been updated.
+  <strong>The ticket has been updated!</strong>
 </div>
 <h1 class="ticket-page-title"> {{ ticket.ticketSubject }} </h1>
 <div class="card">
@@ -8,7 +9,6 @@
     <pre class="ticket-body">{{ commentArray.body }}</pre>
   </div>
 </div>
-
 
 <form>
   <div class="form-group">

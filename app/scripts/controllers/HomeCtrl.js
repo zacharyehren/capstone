@@ -8,7 +8,17 @@
         return true;
       }
     }
-    
+
+    this.loading = true;
+
+    var listTicketsHandler = function(){
+      this.loading = false;
+    }
+
+    listTicketsHandler = listTicketsHandler.bind(this);
+
+    ZenFactory.listTickets().then(listTicketsHandler);
+
     this.ZenFactory = ZenFactory;
 
     this.passTicketInfo = function(ticketId, ticketSubject) {
