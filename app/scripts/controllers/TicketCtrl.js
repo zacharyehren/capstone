@@ -8,7 +8,7 @@
     }
 
     listTicketHandler = listTicketHandler.bind(this);
-
+    debugger;
     ZenFactory.returnTicket().then(listTicketHandler);
 
     this.ZenFactory = ZenFactory;

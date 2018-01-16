@@ -8,7 +8,8 @@
     function onSignIn(googleUser) {
       profile = googleUser.getBasicProfile();
       domain = googleUser.getHostedDomain();
-      if (domain == "sharethrough.com") {
+      if (domain == "sharethrough.com")  {
+        if ($cookies.get('zendeskUserEmail') == undefined) {
         userObject = {
           name: profile.getName(),
           email: profile.getEmail()
@@ -17,7 +18,8 @@
         GoogleOauth.userObject = userObject;
         $cookies.put('zendeskUserEmail', userObject.email);
         $cookies.put('zendeskUserName', userObject.name);
-        ZenFactory.listTickets();
+        location.reload();
+      }
       } else {
         alert("Only Sharethrough emails have access.");
         GoogleOauth.signOut();
