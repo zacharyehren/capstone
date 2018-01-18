@@ -2,29 +2,32 @@
   function MyTicketCtrl(GoogleOauth, ZenFactory, $cookies) {
     this.loading = true;
 
-    this.sort = false;
+    this.ascSort = false;
+    this.descSort = false;
 
     var sortAscHandler = function() {
-      this.sort = true;
+      this.ascSort = true;
+      this.descSort = false;
     }
 
     sortAscHandler = sortAscHandler.bind(this);
 
     var sortDescHandler = function(){
-      this.sort = false;
+      this.ascSort = false;
+      this.descSort = true;
     }
 
     sortDescHandler = sortDescHandler.bind(this);
 
 
     this.sortByTitle = function() {
-      if (this.sort == false) {
+      if (this.ascSort == false) {
         function ticketSubjectAscSort(a, b) {
           return a.subject.localeCompare(b.subject);
         }
         this.ZenFactory.myTicketData.ticket.sort(ticketSubjectAscSort);
         sortAscHandler();
-      } else if (this.sort == true) {
+      } else if (this.ascSort == true) {
         function ticketSubjectDescSort(a, b) {
           return b.subject.localeCompare(a.subject);
         }
