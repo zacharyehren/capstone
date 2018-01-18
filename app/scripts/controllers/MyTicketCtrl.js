@@ -1,12 +1,20 @@
 (function() {
   function MyTicketCtrl(GoogleOauth, ZenFactory, $cookies) {
     this.loading = true;
+    this.sort = false;
+
+    var sortHandler = function(){
+      this.sort = true;
+    }
+
+    sortHandler = sortHandler.bind(this);
 
     this.sortByTitle = function() {
       function ticketSubjectSort(a, b) {
         return a.subject.localeCompare(b.subject);
       }
       this.ZenFactory.myTicketData.ticket.sort(ticketSubjectSort);
+      sortHandler();
     }
 
     var myTicketsHandler = function() {
