@@ -41,6 +41,11 @@ th {
     border-left: 4px solid transparent;
 }
 
+.desc-carat.carat{
+  border-top: 0;
+  border-bottom: 4px dashed;
+}
+
 
 /*left bar */
 
