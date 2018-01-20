@@ -5,8 +5,7 @@
     <tr>
       <th ng-click="myTickets.sortByTitle()">
           Title
-        <span class="up-carat" ng-show="myTickets.ascSort"></span>
-        <span class="down-carat" ng-show="myTickets.descSort"></span>
+        <span ng-class="myTickets.sortClass"></span>
       </th>
       <th>
         Date Submitted

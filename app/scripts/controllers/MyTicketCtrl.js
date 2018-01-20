@@ -2,37 +2,24 @@
   function MyTicketCtrl(GoogleOauth, ZenFactory, $cookies) {
     this.loading = true;
 
-    this.ascSort = false;
-    this.descSort = false;
+    this.sort = null;
 
-    var sortAscHandler = function() {
-      this.ascSort = true;
-      this.descSort = false;
-    }
-
-    sortAscHandler = sortAscHandler.bind(this);
-
-    var sortDescHandler = function(){
-      this.ascSort = false;
-      this.descSort = true;
-    }
-
-    sortDescHandler = sortDescHandler.bind(this);
+    this.sortClass = "";
 
 
     this.sortByTitle = function() {
-      if (this.ascSort == false) {
-        function ticketSubjectAscSort(a, b) {
+      if (this.sort == null || this.sort == "desc") {
+        this.sort = "asc";
+        this.sortClass = "up-carat";
+        this.ZenFactory.myTicketData.ticket.sort(function(a, b) {
           return a.subject.localeCompare(b.subject);
-        }
-        this.ZenFactory.myTicketData.ticket.sort(ticketSubjectAscSort);
-        sortAscHandler();
-      } else if (this.ascSort == true) {
-        function ticketSubjectDescSort(a, b) {
+        });
+      } else if (this.sort == "asc") {
+        this.sort = "desc";
+        this.sortClass = "down-carat";
+        this.ZenFactory.myTicketData.ticket.sort(function (a, b) {
           return b.subject.localeCompare(a.subject);
-        }
-        this.ZenFactory.myTicketData.ticket.sort(ticketSubjectDescSort);
-        sortDescHandler();
+        });
       }
     }
 
