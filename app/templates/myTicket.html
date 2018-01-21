@@ -3,18 +3,21 @@
 <table class="table table-bordered table-striped platform-spacing">
   <thead>
     <tr>
-      <th ng-click="myTickets.sortByTitle()">
+      <th ng-click="myTickets.sortData('subject')">
           Title
-        <span ng-class="myTickets.sortClass"></span>
+        <div ng-class="myTickets.sortClass"></div>
       </th>
-      <th>
+      <th ng-click="myTickets.sortData('created_at')">
         Date Submitted
+        <div ng-class="myTickets.sortClass"></div>
       </th>
-      <th>
+      <th ng-click="myTickets.sortData('updated_at')">
         Last Updated
+        <div ng-class="myTickets.sortClass"></div>
       </th>
-      <th>
+      <th ng-click="myTickets.sortData('status')">
         Ticket Status*
+        <div ng-class="myTickets.sortClass"></div>
       </th>
     </tr>
   </thead>

@@ -1,25 +1,17 @@
 (function() {
-  function MyTicketCtrl(GoogleOauth, ZenFactory, $cookies) {
+  function MyTicketCtrl(GoogleOauth, ZenFactory, SortData, $cookies) {
     this.loading = true;
-
-    this.sort = null;
 
     this.sortClass = "";
 
-
-    this.sortByTitle = function() {
-      if (this.sort == null || this.sort == "desc") {
-        this.sort = "asc";
+    this.sortData = function(sortType) {
+      if (this.sortClass == "" || this.sortClass == "down-carat") {
+        this.selected = true;
         this.sortClass = "up-carat";
-        this.ZenFactory.myTicketData.ticket.sort(function(a, b) {
-          return a.subject.localeCompare(b.subject);
-        });
-      } else if (this.sort == "asc") {
-        this.sort = "desc";
+        SortData.myTicketSort(sortType);
+      } else if (this.sortClass == "up-carat") {
         this.sortClass = "down-carat";
-        this.ZenFactory.myTicketData.ticket.sort(function (a, b) {
-          return b.subject.localeCompare(a.subject);
-        });
+        SortData.myTicketSort(sortType);
       }
     }
 
@@ -41,5 +33,5 @@
 
   angular
     .module('capstone')
-    .controller('MyTicketCtrl', ['GoogleOauth', 'ZenFactory', '$cookies', MyTicketCtrl]);
+    .controller('MyTicketCtrl', ['GoogleOauth', 'ZenFactory', 'SortData', '$cookies', MyTicketCtrl]);
 })();

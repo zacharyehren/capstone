@@ -41,6 +41,10 @@ th {
     border-left: 4px solid transparent;
 }
 
+.up-carat ~ .up-carat {
+display: none;
+}
+
 .down-carat {
   display: inline-block;
     width: 0;
