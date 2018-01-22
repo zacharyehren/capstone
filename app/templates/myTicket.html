@@ -3,21 +3,21 @@
 <table class="table table-bordered table-striped platform-spacing">
   <thead>
     <tr>
-      <th ng-click="myTickets.sortData('subject')">
+      <th ng-click="myTickets.sortData('subject'); selected ='subject'">
           Title
-        <div ng-class="myTickets.sortClass"></div>
+        <div ng-class="myTickets.sortClass" ng-show="selected == 'subject'"></div>
       </th>
-      <th ng-click="myTickets.sortData('created_at')">
+      <th ng-click="myTickets.sortData('created_at'); selected = 'created_at'">
         Date Submitted
-        <div ng-class="myTickets.sortClass"></div>
+        <div ng-class="myTickets.sortClass" ng-show="selected == 'created_at'"></div>
       </th>
-      <th ng-click="myTickets.sortData('updated_at')">
+      <th ng-click="myTickets.sortData('updated_at'); selected = 'updated_at'">
         Last Updated
-        <div ng-class="myTickets.sortClass"></div>
+        <div ng-class="myTickets.sortClass" ng-show="selected == 'updated_at'"></div>
       </th>
-      <th ng-click="myTickets.sortData('status')">
+      <th ng-click="myTickets.sortData('status'); selected = 'status'">
         Ticket Status*
-        <div ng-class="myTickets.sortClass"></div>
+        <div ng-class="myTickets.sortClass" ng-show="selected == 'status'"></div>
       </th>
     </tr>
   </thead>

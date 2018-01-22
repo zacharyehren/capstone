@@ -6,7 +6,6 @@
 
     this.sortData = function(sortType) {
       if (this.sortClass == "" || this.sortClass == "down-carat") {
-        this.selected = true;
         this.sortClass = "up-carat";
         SortData.myTicketSort(sortType);
       } else if (this.sortClass == "up-carat") {
