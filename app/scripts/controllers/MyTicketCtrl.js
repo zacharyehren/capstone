@@ -10,10 +10,10 @@
       this.selected = sortType;
       if (this.sortClass == "" || this.sortClass == "down-carat") {
         this.sortClass = "up-carat";
-        SortData.myTicketSort(sortType);
+        SortData.ticketSort(sortType, "myTicketData", "ticket");
       } else if (this.sortClass == "up-carat") {
         this.sortClass = "down-carat";
-        SortData.myTicketSort(sortType);
+        SortData.ticketSort(sortType, "myTicketData", "ticket");
       }
     }
 
