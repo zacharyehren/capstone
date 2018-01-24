@@ -10,7 +10,8 @@
       };
 
       return $http(displayTickets).then(function successCallback(response) {
-        ZenFactory.csm_data = response.data;
+        ZenFactory.unsolvedTickets = response.data;
+        console.log(ZenFactory.unsolvedTickets);
       });
     };
 

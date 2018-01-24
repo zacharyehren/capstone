@@ -8,11 +8,13 @@
 <table class="table table-bordered table-striped platform-spacing">
   <thead>
     <tr>
-      <th>
+      <th ng-click="home.sortData('subject', 'ticket'); selected ='subject'">
         Title
+        <div ng-class="home.sortClass" ng-show="selected == 'subject'"></div>
       </th>
-      <th>
+      <th ng-click="home.sortData('users'); selected ='submitter'">
         Submitter
+        <div ng-class="home.sortClass" ng-show="selected == 'submitter'"></div>
       </th>
       <th>
         Date Submitted
@@ -26,7 +28,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="ticket in home.ZenFactory.csm_data.ticket" ng-init="users = home.ZenFactory.csm_data.users">
+    <tr ng-repeat="ticket in home.ZenFactory.unsolvedTickets.ticket" ng-init="users = home.ZenFactory.unsolvedTickets.users">
       <td>
         <a ui-sref="ticket" ng-click="home.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
             {{ ticket.subject }}

@@ -1,5 +1,22 @@
 (function() {
-  function HomeCtrl(GoogleOauth, ZenFactory, $cookies, $location, $anchorScroll, $scope, $stateParams) {
+  function HomeCtrl(GoogleOauth, ZenFactory, SortData, $cookies, $location, $anchorScroll, $scope, $stateParams) {
+    this.sortClass = "";
+    this.selected = "";
+
+//users not working because it doesn't pull from ticket in ZenFactory.unsolvedTickets
+    this.sortData = function(sortType, dataType) {
+      if (this.selected != sortType) {
+        this.sortClass = "";
+      }
+      this.selected = sortType;
+      if (this.sortClass == "" || this.sortClass == "down-carat") {
+        this.sortClass = "up-carat";
+        SortData.ticketSort(sortType, "unsolvedTickets", dataType);
+      } else if (this.sortClass == "up-carat") {
+        this.sortClass = "down-carat";
+        SortData.ticketSort(sortType, "unsolvedTickets", dataType);
+      }
+    }
 
     this.userSignedOut  = function() {
       if ($cookies.get('zendeskUserEmail') != undefined) {
@@ -44,5 +61,5 @@
 
   angular
     .module('capstone')
-    .controller('HomeCtrl', ['GoogleOauth', 'ZenFactory', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', HomeCtrl]);
+    .controller('HomeCtrl', ['GoogleOauth', 'ZenFactory', 'SortData', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', HomeCtrl]);
 })();
