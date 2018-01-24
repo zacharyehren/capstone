@@ -1,5 +1,5 @@
 (function() {
-  function ClosedTicketCtrl(GoogleOauth, ZenFactory, $cookies) {
+  function ClosedTicketCtrl(GoogleOauth, ZenFactory, $cookies, $location, $anchorScroll, $scope, $stateParams) {
 
     this.loading = true;
 
@@ -18,9 +18,14 @@
       $cookies.put('zendeskTicketSubject', ticketSubject)
     }
 
+    // Moves view to the top of the page when selecting different tickets
+    $scope.$watchCollection('$stateParams', function() {
+      $anchorScroll();
+    });
+
   }
 
   angular
     .module('capstone')
-    .controller('ClosedTicketCtrl', ['GoogleOauth', 'ZenFactory', '$cookies', ClosedTicketCtrl]);
+    .controller('ClosedTicketCtrl', ['GoogleOauth', 'ZenFactory', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', ClosedTicketCtrl]);
 })();

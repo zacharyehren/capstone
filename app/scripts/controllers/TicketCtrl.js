@@ -1,5 +1,5 @@
 (function() {
-  function TicketCtrl(ZenFactory, $cookies) {
+  function TicketCtrl(ZenFactory, $cookies, $location, $anchorScroll, $scope, $stateParams) {
 
     this.loading = true;
 
@@ -8,7 +8,6 @@
     }
 
     listTicketHandler = listTicketHandler.bind(this);
-    debugger;
     ZenFactory.returnTicket().then(listTicketHandler);
 
     this.ZenFactory = ZenFactory;
@@ -23,9 +22,14 @@
       location.reload();
     };
 
+    // Moves view to the top of the page when selecting different tickets
+    $scope.$watchCollection('$stateParams', function() {
+      $anchorScroll();
+   });
+
   }
 
   angular
     .module('capstone')
-    .controller('TicketCtrl', ['ZenFactory', '$cookies', TicketCtrl]);
+    .controller('TicketCtrl', ['ZenFactory', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', TicketCtrl]);
 })();

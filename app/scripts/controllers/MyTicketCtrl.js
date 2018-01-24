@@ -1,10 +1,13 @@
 (function() {
-  function MyTicketCtrl(GoogleOauth, ZenFactory, SortData, $cookies) {
-    this.loading = true;
-
+  function MyTicketCtrl(GoogleOauth, ZenFactory, SortData, $cookies, $location, $anchorScroll, $scope, $stateParams) {
     this.sortClass = "";
+    this.selected = "";
 
     this.sortData = function(sortType) {
+      if (this.selected != sortType) {
+        this.sortClass = "";
+      }
+      this.selected = sortType;
       if (this.sortClass == "" || this.sortClass == "down-carat") {
         this.sortClass = "up-carat";
         SortData.myTicketSort(sortType);
@@ -14,9 +17,12 @@
       }
     }
 
+    this.loading = true;
+
     var myTicketsHandler = function() {
       this.loading = false;
     }
+
     myTicketsHandler = myTicketsHandler.bind(this);
 
     ZenFactory.listMyTickets().then(myTicketsHandler);
@@ -28,9 +34,15 @@
       $cookies.put('zendeskTicketSubject', ticketSubject)
     }
 
+    // Moves view to the top of the page when selecting different tickets
+    $scope.$watchCollection('$stateParams', function() {
+      $anchorScroll();
+    });
+
+
   }
 
   angular
     .module('capstone')
-    .controller('MyTicketCtrl', ['GoogleOauth', 'ZenFactory', 'SortData', '$cookies', MyTicketCtrl]);
+    .controller('MyTicketCtrl', ['GoogleOauth', 'ZenFactory', 'SortData', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', MyTicketCtrl]);
 })();

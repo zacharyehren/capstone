@@ -1,5 +1,5 @@
 (function() {
-  function HomeCtrl(GoogleOauth, ZenFactory, $cookies) {
+  function HomeCtrl(GoogleOauth, ZenFactory, $cookies, $location, $anchorScroll, $scope, $stateParams) {
 
     this.userSignedOut  = function() {
       if ($cookies.get('zendeskUserEmail') != undefined) {
@@ -34,9 +34,15 @@
       $cookies.put('zendeskTicketSubject', ticketSubject)
     }
 
+    // Moves view to the top of the page when selecting different tickets
+    $scope.$watchCollection('$stateParams', function() {
+      $anchorScroll();
+    });
+
+
   }
 
   angular
     .module('capstone')
-    .controller('HomeCtrl', ['GoogleOauth', 'ZenFactory', '$cookies', HomeCtrl]);
+    .controller('HomeCtrl', ['GoogleOauth', 'ZenFactory', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', HomeCtrl]);
 })();
