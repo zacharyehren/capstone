@@ -3,18 +3,29 @@
     this.sortClass = "";
     this.selected = "";
 
-//users not working because it doesn't pull from ticket in ZenFactory.unsolvedTickets
-    this.sortData = function(sortType, dataType) {
+
+    var compileUsers = function(){
+      var unsolvedTickets = ZenFactory.unsolvedTickets;
+      for (var i = 0; i < unsolvedTickets.ticket.length; i++) {
+          var ticketObject = unsolvedTickets.ticket[i];
+          var username = unsolvedTickets.users[ticketObject.submitter];
+          ticketObject.username = username;
+
+      }
+    }
+
+
+    this.sortData = function(objectFromZendesk, sortType) {
       if (this.selected != sortType) {
         this.sortClass = "";
       }
       this.selected = sortType;
       if (this.sortClass == "" || this.sortClass == "down-carat") {
         this.sortClass = "up-carat";
-        SortData.ticketSort(sortType, "unsolvedTickets", dataType);
+        SortData.ticketSort(sortType, "unsolvedTickets", objectFromZendesk);
       } else if (this.sortClass == "up-carat") {
         this.sortClass = "down-carat";
-        SortData.ticketSort(sortType, "unsolvedTickets", dataType);
+        SortData.ticketSort(sortType, "unsolvedTickets", objectFromZendesk);
       }
     }
 
@@ -36,7 +47,7 @@
 
     var signedInTicketReturn = function() {
       if ($cookies.get('zendeskUserEmail') != undefined) {
-        ZenFactory.listTickets().then(listTicketsHandler);
+        ZenFactory.listTickets().then(listTicketsHandler).then(compileUsers);
       } else {
         listTicketsHandler();
       }

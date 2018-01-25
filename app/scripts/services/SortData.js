@@ -6,6 +6,7 @@
     SortData.ticketSort = function(sortType, ZenFactoryObject, dataFromObject) {
       if (sort == null || sort == "desc") {
         sort = "asc";
+        // Ex: ZenFactory[myTicketData][subject].sort...
         ZenFactory[ZenFactoryObject][dataFromObject].sort(function(a, b) {
           return a[sortType].localeCompare(b[sortType]);
         });

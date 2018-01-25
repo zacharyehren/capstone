@@ -8,22 +8,25 @@
 <table class="table table-bordered table-striped platform-spacing">
   <thead>
     <tr>
-      <th ng-click="home.sortData('subject', 'ticket'); selected ='subject'">
+      <th ng-click="home.sortData('ticket', 'subject'); selected ='subject'">
         Title
         <div ng-class="home.sortClass" ng-show="selected == 'subject'"></div>
       </th>
-      <th ng-click="home.sortData('users'); selected ='submitter'">
+      <th ng-click="home.sortData('ticket', 'username'); selected ='username'">
         Submitter
-        <div ng-class="home.sortClass" ng-show="selected == 'submitter'"></div>
+        <div ng-class="home.sortClass" ng-show="selected == 'username'"></div>
       </th>
-      <th>
+      <th ng-click="home.sortData('ticket', 'created_at'); selected ='created_at'">
         Date Submitted
+        <div ng-class="home.sortClass" ng-show="selected == 'created_at'"></div>
       </th>
-      <th>
+      <th ng-click="home.sortData('ticket', 'updated_at'); selected = 'updated_at'">
         Last Updated
+        <div ng-class="home.sortClass" ng-show="selected == 'updated_at'"></div>
       </th>
-      <th>
+      <th ng-click="home.sortData('ticket', 'status'); selected = 'status'">
         Ticket Status*
+        <div ng-class="home.sortClass" ng-show="selected == 'status'"></div>
       </th>
     </tr>
   </thead>
@@ -35,7 +38,7 @@
           </a>
       </td>
       <td>
-        {{ users[ticket.submitter] }}
+        {{ ticket.username }}
       </td>
       <td>
         {{ ticket.created_at | date:'mediumDate' }}
