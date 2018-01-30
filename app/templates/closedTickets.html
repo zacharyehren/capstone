@@ -3,22 +3,26 @@
 <table class="table table-bordered table-striped platform-spacing">
   <thead>
     <tr>
-      <th>
+      <th ng-click="closedTickets.sortData('subject'); selected ='subject'">
         Title
+        <div ng-class="closedTickets.sortClass" ng-show="selected == 'subject'"></div>
       </th>
-      <th>
+      <th ng-click="closedTickets.sortData('username'); selected ='username'">
         Submitter
+        <div ng-class="closedTickets.sortClass" ng-show="selected == 'username'"></div>
       </th>
-      <th>
+      <th ng-click="closedTickets.sortData('created_at'); selected ='created_at'">
         Date Submitted
+        <div ng-class="closedTickets.sortClass" ng-show="selected == 'created_at'"></div>
       </th>
-      <th>
+      <th ng-click="closedTickets.sortData('updated_at'); selected ='updated_at'">
         Date Closed
+        <div ng-class="closedTickets.sortClass" ng-show="selected == 'updated_at'"></div>
       </th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="ticket in closedTickets.ZenFactory.csmClosedTicketData.ticket" ng-init="users = closedTickets.ZenFactory.csmClosedTicketData.users">
+    <tr ng-repeat="ticket in closedTickets.ZenFactory.closedTickets.ticket" ng-init="users = closedTickets.ZenFactory.closedTickets.users">
       <td>
         <a ui-sref="ticket" ng-click="closedTickets.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
             {{ ticket.subject }}

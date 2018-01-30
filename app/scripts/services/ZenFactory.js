@@ -22,7 +22,7 @@
       };
 
       return $http(displayClosedTickets).then(function successCallback(response) {
-        ZenFactory.csmClosedTicketData = response.data;
+        ZenFactory.closedTickets = response.data;
       });
     };
 

@@ -3,7 +3,6 @@
     this.sortClass = "";
     this.selected = "";
 
-
     var compileUsers = function(){
       var unsolvedTickets = ZenFactory.unsolvedTickets;
       for (var i = 0; i < unsolvedTickets.ticket.length; i++) {
@@ -14,18 +13,17 @@
       }
     }
 
-
-    this.sortData = function(objectFromZendesk, sortType) {
+    this.sortData = function(sortType) {
       if (this.selected != sortType) {
         this.sortClass = "";
       }
       this.selected = sortType;
       if (this.sortClass == "" || this.sortClass == "down-carat") {
         this.sortClass = "up-carat";
-        SortData.ticketSort(sortType, "unsolvedTickets", objectFromZendesk);
+        SortData.ticketSort(sortType, "unsolvedTickets", "ticket");
       } else if (this.sortClass == "up-carat") {
         this.sortClass = "down-carat";
-        SortData.ticketSort(sortType, "unsolvedTickets", objectFromZendesk);
+        SortData.ticketSort(sortType, "unsolvedTickets", "ticket");
       }
     }
 

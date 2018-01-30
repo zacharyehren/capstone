@@ -8,23 +8,23 @@
 <table class="table table-bordered table-striped platform-spacing">
   <thead>
     <tr>
-      <th ng-click="home.sortData('ticket', 'subject'); selected ='subject'">
+      <th ng-click="home.sortData('subject'); selected ='subject'">
         Title
         <div ng-class="home.sortClass" ng-show="selected == 'subject'"></div>
       </th>
-      <th ng-click="home.sortData('ticket', 'username'); selected ='username'">
+      <th ng-click="home.sortData('username'); selected ='username'">
         Submitter
         <div ng-class="home.sortClass" ng-show="selected == 'username'"></div>
       </th>
-      <th ng-click="home.sortData('ticket', 'created_at'); selected ='created_at'">
+      <th ng-click="home.sortData('created_at'); selected ='created_at'">
         Date Submitted
         <div ng-class="home.sortClass" ng-show="selected == 'created_at'"></div>
       </th>
-      <th ng-click="home.sortData('ticket', 'updated_at'); selected = 'updated_at'">
+      <th ng-click="home.sortData('updated_at'); selected = 'updated_at'">
         Last Updated
         <div ng-class="home.sortClass" ng-show="selected == 'updated_at'"></div>
       </th>
-      <th ng-click="home.sortData('ticket', 'status'); selected = 'status'">
+      <th ng-click="home.sortData('status'); selected = 'status'">
         Ticket Status*
         <div ng-class="home.sortClass" ng-show="selected == 'status'"></div>
       </th>
