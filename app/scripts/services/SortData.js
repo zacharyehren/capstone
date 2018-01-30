@@ -1,11 +1,12 @@
 (function() {
   function SortData(ZenFactory, $cookies) {
-
-    var sort = null;
+    var sort = "";
+    var selected = "";
 
     SortData.ticketSort = function(sortType, ZenFactoryObject, dataFromObject) {
-      if (sort == null || sort == "desc") {
+      if (sort == "" || sort == "desc" || selected != sortType) {
         sort = "asc";
+        selected = sortType;
         // Ex: ZenFactory[myTicketData][subject].sort...
         ZenFactory[ZenFactoryObject][dataFromObject].sort(function(a, b) {
           return a[sortType].localeCompare(b[sortType]);
