@@ -1,6 +1,6 @@
 ## Sharethrough Support Ticket Portal
 
-*Streamline communication with Sharethrough's Support Team by viewing, creating, and updating tickets directly in the portal*
+Streamline communication with Sharethrough's Support Team by viewing, creating, and updating tickets directly in the portal
 
 *Used in conjunction with zendesk-api on the back-end (https://github.com/zacharyehren/zendesk-api)*
 
