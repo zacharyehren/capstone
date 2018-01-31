@@ -3,16 +3,6 @@
     this.sortClass = "";
     this.selected = "";
 
-    var compileUsers = function(){
-      var closedTickets = ZenFactory.closedTickets;
-      for (var i = 0; i < closedTickets.ticket.length; i++) {
-          var ticketObject = closedTickets.ticket[i];
-          var username = closedTickets.users[ticketObject.submitter];
-          ticketObject.username = username;
-
-      }
-    }
-
     this.sortData = function(sortType) {
       if (this.selected != sortType) {
         this.sortClass = "";
@@ -35,7 +25,7 @@
 
     closedTicketsHandler = closedTicketsHandler.bind(this);
 
-    ZenFactory.listClosedTickets().then(closedTicketsHandler).then(compileUsers);
+    ZenFactory.listClosedTickets().then(closedTicketsHandler);
 
     this.ZenFactory = ZenFactory;
 

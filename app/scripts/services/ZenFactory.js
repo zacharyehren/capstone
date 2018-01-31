@@ -11,7 +11,6 @@
 
       return $http(displayTickets).then(function successCallback(response) {
         ZenFactory.unsolvedTickets = response.data;
-        console.log(ZenFactory.unsolvedTickets);
       });
     };
 
@@ -80,7 +79,6 @@
 
       $http(createComment).then(function successCallback(response) {
         ZenFactory.newComment = response.data;
-        console.log(ZenFactory.newComment);
       });
     }
 

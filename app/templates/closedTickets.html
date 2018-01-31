@@ -22,14 +22,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="ticket in closedTickets.ZenFactory.closedTickets.ticket" ng-init="users = closedTickets.ZenFactory.closedTickets.users">
+    <tr ng-repeat="ticket in closedTickets.ZenFactory.closedTickets.ticket">
       <td>
         <a ui-sref="ticket" ng-click="closedTickets.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
             {{ ticket.subject }}
           </a>
       </td>
       <td>
-        {{ users[ticket.submitter] }}
+        {{ ticket.username }}
       </td>
       <td>
         {{ ticket.created_at | date:'mediumDate' }}

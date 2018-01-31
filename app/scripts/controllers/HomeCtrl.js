@@ -3,16 +3,6 @@
     this.sortClass = "";
     this.selected = "";
 
-    var compileUsers = function(){
-      var unsolvedTickets = ZenFactory.unsolvedTickets;
-      for (var i = 0; i < unsolvedTickets.ticket.length; i++) {
-          var ticketObject = unsolvedTickets.ticket[i];
-          var username = unsolvedTickets.users[ticketObject.submitter];
-          ticketObject.username = username;
-
-      }
-    }
-
     this.sortData = function(sortType) {
       if (this.selected != sortType) {
         this.sortClass = "";
@@ -45,7 +35,7 @@
 
     var signedInTicketReturn = function() {
       if ($cookies.get('zendeskUserEmail') != undefined) {
-        ZenFactory.listTickets().then(listTicketsHandler).then(compileUsers);
+        ZenFactory.listTickets().then(listTicketsHandler);
       } else {
         listTicketsHandler();
       }
