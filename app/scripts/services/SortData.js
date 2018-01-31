@@ -3,17 +3,17 @@
     var sort = "";
     var selected = "";
 
-    SortData.ticketSort = function(sortType, ZenFactoryObject, dataFromObject) {
+    SortData.ticketSort = function(sortType, ZenFactoryObject) {
       if (sort == "" || sort == "desc" || selected != sortType) {
         sort = "asc";
         selected = sortType;
         // Ex: ZenFactory[myTicketData][subject].sort...
-        ZenFactory[ZenFactoryObject][dataFromObject].sort(function(a, b) {
+        ZenFactory[ZenFactoryObject]['ticket'].sort(function(a, b) {
           return a[sortType].localeCompare(b[sortType]);
         });
       } else if (sort == "asc"){
         sort = "desc";
-        ZenFactory[ZenFactoryObject][dataFromObject].sort(function(a, b) {
+        ZenFactory[ZenFactoryObject]['ticket'].sort(function(a, b) {
           return b[sortType].localeCompare(a[sortType]);
         });
       }
