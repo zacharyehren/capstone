@@ -31,7 +31,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="ticket in home.ZenFactory.unsolvedTickets.ticket" ng-init="users = home.ZenFactory.unsolvedTickets.users">
+    <tr ng-repeat="ticket in home.ZenFactory.unsolvedTickets.ticket">
       <td>
         <a ui-sref="ticket" ng-click="home.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
             {{ ticket.subject }}

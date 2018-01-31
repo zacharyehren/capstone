@@ -14,8 +14,6 @@
 
     this.ticketSubject = $cookies.get('zendeskTicketSubject')
 
-    ZenFactory.ticketRefresh();
-
     this.createComment = function() {
       this.submitted = true;
       ZenFactory.createComment(this.commentBody);

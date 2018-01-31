@@ -82,12 +82,6 @@
       });
     }
 
-    ZenFactory.ticketRefresh = function() {
-      if ($cookies.get('zendeskTicketId') != undefined) {
-        ZenFactory.returnTicket();
-      }
-    }
-
     return ZenFactory;
 
   };
