@@ -11,6 +11,17 @@
 
       return $http(displayTickets).then(function successCallback(response) {
         ZenFactory.unsolvedTickets = response.data;
+        var tickets = ZenFactory.unsolvedTickets.ticket;
+        var incidents = ZenFactory.unsolvedTickets.incidents;
+        // ZenFactory.unsolvedTickets.ticketsWithIncidents = [];
+        for (var i = 0; i < tickets.length; i++) {
+          for (var p = 0; p < incidents.length; p++)
+          if(tickets[i].id == incidents[p].problem_id) {
+            // ZenFactory.unsolvedTickets.ticketsWithIncidents.push(tickets[i]);
+            tickets[i].hasIncident = true;
+          }
+        }
+        console.log(ZenFactory.unsolvedTickets);
       });
     };
 
@@ -36,6 +47,7 @@
 
       return $http(displayMyTickets).then(function successCallback(response) {
         ZenFactory.myTicketData = response.data;
+        console.log(ZenFactory.myTicketData);
       });
     };
 

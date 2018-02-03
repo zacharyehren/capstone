@@ -31,11 +31,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="ticket in home.ZenFactory.unsolvedTickets.ticket">
+    <tr ng-repeat="ticket in home.ZenFactory.unsolvedTickets.ticket" ng-init="incidents = home.ZenFactory.unsolvedTickets.incidents">
       <td>
-        <a ui-sref="ticket" ng-click="home.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
+        <a ui-sref="ticket" ng-click="home.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title" >
             {{ ticket.subject }}
           </a>
+          <button ng-show="ticket.hasIncident == true" button type="button" class="btn btn-warning">This ticket has incidents</button>
       </td>
       <td>
         {{ ticket.username }}
