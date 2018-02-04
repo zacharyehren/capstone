@@ -31,12 +31,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="ticket in home.ZenFactory.unsolvedTickets.ticket" ng-init="incidents = home.ZenFactory.unsolvedTickets.incidents">
+    <tr ng-repeat="ticket in home.ZenFactory.unsolvedTickets.ticket">
       <td>
-        <a ui-sref="ticket" ng-click="home.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title" >
+        <a ui-sref="ticket" ng-click="home.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
             {{ ticket.subject }}
           </a>
-          <button ng-show="ticket.hasIncident == true" button type="button" class="btn btn-warning">This ticket has incidents</button>
+        <div ng-click="home.ticketIdCookie(ticket.id)">
+          <button ng-show="ticket.hasIncident == true" button type="button" class="btn btn-warning" ng-controller="IncidentsModalCtrl as incidentsModal" ng-click="incidentsModal.openModal()">This ticket has incidents</button>
+        </div>
       </td>
       <td>
         {{ ticket.username }}
@@ -56,28 +58,28 @@
 
 </table>
 <div ng-hide="home.userSignedOut()">
-<h3>*Ticket Status key</h3>
-<table class="table table-bordered table-striped">
-  <th>
-    Open
-  </th>
-  <th>
-    Pending
-  </th>
-  <th>
-    Hold
-  </th>
-  <tr>
-    <td>
-      Support is investigating and will follow-up with an update
-    </td>
-    <td>
-      Waiting on response from CSM <strong>OR</strong> Support waiting on response from Product/Engineering
-    </td>
-    <td>
-      Engineering is in progress of investigating/resolving
-    </td>
-  </tr>
-</table>
+  <h3>*Ticket Status key</h3>
+  <table class="table table-bordered table-striped">
+    <th>
+      Open
+    </th>
+    <th>
+      Pending
+    </th>
+    <th>
+      Hold
+    </th>
+    <tr>
+      <td>
+        Support is investigating and will follow-up with an update
+      </td>
+      <td>
+        Waiting on response from CSM <strong>OR</strong> Support waiting on response from Product/Engineering
+      </td>
+      <td>
+        Engineering is in progress of investigating/resolving
+      </td>
+    </tr>
+  </table>
 </div>
 <div class="bottom-space"></div>
