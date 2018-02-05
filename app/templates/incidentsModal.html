@@ -20,9 +20,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="incident in incidentsModal.ZenFactory.unsolvedTickets.incidents">
+    <tr ng-repeat="incident in incidentsModal.incidentsArray">
       <td>
-        <a ui-sref="ticket" ng-click="incidentsModal.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title" >
+        <a ui-sref="ticket" ng-click="incidentsModal.passTicketInfo(incident.id, incident.subject)" class="ticket-title" >
             {{ incident.subject }}
           </a>
       </td>

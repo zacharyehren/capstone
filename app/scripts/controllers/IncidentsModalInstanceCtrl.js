@@ -1,5 +1,5 @@
 (function() {
-  function IncidentsModalInstanceCtrl($uibModalInstance, ZenFactory, $cookies) {
+  function IncidentsModalInstanceCtrl($uibModalInstance, ZenFactory, SortData, $cookies) {
 
     this.sortClass = "";
     this.selected = "";
@@ -18,17 +18,35 @@
       }
     }
 
-    // create function that loops through all incidents and creates array of incidents whose problem_id matches the ticketId cookie
-    // display tickets from the new array
+    var returnIncidents = function(){
+      this.incidentsArray = [];
+      var incidents = ZenFactory.unsolvedTickets.incidents;
+      for (var i = 0; i < incidents.length; i++){
+        if ($cookies.get('ticketId') == incidents[i].problem_id) {
+          this.incidentsArray.push(incidents[i]);
+        }
+      }
+      console.log(this.incidentsArray);
+      console.log($cookies.get('ticketId'))
+    }
 
+    returnIncidents = returnIncidents.bind(this);
+
+    returnIncidents();
 
     this.ZenFactory = ZenFactory;
 
-    this.ticketSubject = $cookies.get('zendeskTicketSubject')
+    this.ticketSubject = $cookies.get('zendeskTicketSubject');
+
+    this.passTicketInfo = function(ticketId, ticketSubject) {
+      $cookies.put('zendeskTicketId', ticketId);
+      $cookies.put('zendeskTicketSubject', ticketSubject);
+      $uibModalInstance.close();
+    }
 
   }
 
   angular
     .module('capstone')
-    .controller('IncidentsModalInstanceCtrl', ['$uibModalInstance', 'ZenFactory', '$cookies', IncidentsModalInstanceCtrl]);
+    .controller('IncidentsModalInstanceCtrl', ['$uibModalInstance', 'ZenFactory', 'SortData', '$cookies', IncidentsModalInstanceCtrl]);
 })();
