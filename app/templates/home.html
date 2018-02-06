@@ -36,9 +36,7 @@
         <a ui-sref="ticket" ng-click="home.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
             {{ ticket.subject }}
           </a>
-        <div ng-click="home.ticketIdCookie(ticket.id)">
-          <button ng-show="ticket.hasIncident == true" button type="button" class="btn btn-warning" ng-controller="IncidentsModalCtrl as incidentsModal" ng-click="incidentsModal.openModal()">This ticket has incidents</button>
-        </div>
+          <button ng-show="ticket.hasIncident == true" button type="button" class="btn btn-warning" ng-controller="IncidentsModalCtrl as incidentsModal" ng-click="incidentsModal.openModal(ticket.id);">This ticket has incidents</button>
       </td>
       <td>
         {{ ticket.username }}
