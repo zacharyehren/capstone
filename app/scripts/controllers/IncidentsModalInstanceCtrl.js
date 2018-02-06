@@ -13,10 +13,14 @@
       this.selected = sortType;
       if (this.sortClass == "" || this.sortClass == "down-carat") {
         this.sortClass = "up-carat";
-        SortData.ticketSort(sortType, "unsolvedTickets");
+        this.incidentsArray.sort(function(a, b) {
+          return a[sortType].localeCompare(b[sortType]);
+        });
       } else if (this.sortClass == "up-carat") {
         this.sortClass = "down-carat";
-        SortData.ticketSort(sortType, "unsolvedTickets");
+        this.incidentsArray.sort(function(a, b) {
+          return b[sortType].localeCompare(a[sortType]);
+        });
       }
     }
 
@@ -28,8 +32,6 @@
           this.incidentsArray.push(incidents[i]);
         }
       }
-      console.log(this.incidentsArray);
-      console.log($cookies.get('ticketId'))
     }
 
     returnIncidents = returnIncidents.bind(this);

@@ -3,10 +3,6 @@
     this.sortClass = "";
     this.selected = "";
 
-    this.ticketIdCookie = function(ticketId) {
-      $cookies.put('ticketId', ticketId)
-    }
-
     this.sortData = function(sortType) {
       if (this.selected != sortType) {
         this.sortClass = "";
