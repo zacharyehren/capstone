@@ -38,14 +38,12 @@
       var displayMyTickets = {
         method: 'GET',
         url: 'http://localhost:3000/api/my_tickets',
-        data: {
-          submitter_email: $cookies.get('zendeskUserEmail')
+        params: {
+          user_email: $cookies.get('zendeskUserEmail')
         }
       };
-
       return $http(displayMyTickets).then(function successCallback(response) {
         ZenFactory.myTicketData = response.data;
-        console.log(ZenFactory.myTicketData);
       });
     };
 
@@ -60,6 +58,7 @@
             submitter_name: $cookies.get('zendeskUserName')
           }
         };
+
 
         $http(createTicket).then(function successCallback(response) {
           ZenFactory.newTicket = response.data;
