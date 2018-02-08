@@ -8,7 +8,7 @@
         sort = "asc";
         selected = sortType;
         // Ex: ZenFactory[myTicketData][subject].sort...
-        ZenFactory[ZenFactoryObject]['incidents'].sort(function(a, b) {
+        ZenFactory[ZenFactoryObject]['ticket'].sort(function(a, b) {
           return a[sortType].localeCompare(b[sortType]);
         });
       } else if (sort == "asc"){

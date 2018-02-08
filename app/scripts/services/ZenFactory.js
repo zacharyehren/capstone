@@ -3,6 +3,17 @@
 
     var ZenFactory = {};
 
+    var findIncidents = function(ZenFactoryObject){
+      var tickets = ZenFactoryObject['ticket'];
+      var incidents = ZenFactoryObject['incidents'];
+      for (var i = 0; i < tickets.length; i++) {
+        for (var p = 0; p < incidents.length; p++)
+        if(tickets[i].id == incidents[p].problem_id) {
+          tickets[i].hasIncident = true;
+        }
+      }
+    }
+
     ZenFactory.listTickets = function() {
       var displayTickets = {
         method: 'GET',
@@ -11,15 +22,7 @@
 
       return $http(displayTickets).then(function successCallback(response) {
         ZenFactory.unsolvedTickets = response.data;
-        var tickets = ZenFactory.unsolvedTickets.ticket;
-        var incidents = ZenFactory.unsolvedTickets.incidents;
-        for (var i = 0; i < tickets.length; i++) {
-          for (var p = 0; p < incidents.length; p++)
-          if(tickets[i].id == incidents[p].problem_id) {
-            tickets[i].hasIncident = true;
-          }
-        }
-        console.log(ZenFactory.unsolvedTickets);
+        findIncidents(ZenFactory.unsolvedTickets);
       });
     };
 
@@ -31,6 +34,8 @@
 
       return $http(displayClosedTickets).then(function successCallback(response) {
         ZenFactory.closedTickets = response.data;
+        findIncidents(ZenFactory.closedTickets);
+        console.log(ZenFactory.closedTickets)
       });
     };
 

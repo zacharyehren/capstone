@@ -36,7 +36,7 @@
         <a ui-sref="ticket" ng-click="home.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
             {{ ticket.subject }}
           </a>
-          <button ng-show="ticket.hasIncident == true" button type="button" class="btn btn-warning" ng-controller="IncidentsModalCtrl as incidentsModal" ng-click="incidentsModal.openModal(ticket.id);">This ticket has incidents</button>
+          <button ng-show="ticket.hasIncident == true" button type="button" class="btn btn-warning btn-incident" ng-controller="IncidentsModalCtrl as incidentsModal" ng-click="incidentsModal.openModal(ticket.id, home.ZenFactory.unsolvedTickets);">This ticket has incidents</button>
       </td>
       <td>
         {{ ticket.username }}

@@ -61,7 +61,13 @@ display: none;
   border-bottom: 4px dashed;
 }
 
+.btn-incident {
+  margin-left: 10px;
+}
 
+.modal-content {
+  padding: 10px;
+}
 /*left bar */
 
 .local-nav {

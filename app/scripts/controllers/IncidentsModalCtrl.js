@@ -1,17 +1,17 @@
 (function(){
   function IncidentsModalCtrl($uibModal) {
 
-    this.openModal = function(ticketId) {
+    this.openModal = function(ticketId, ZenFactoryObject) {
       var modalInstance = $uibModal.open({
         animation: this.animationsEnabled,
         templateUrl: '/templates/incidentsModal.html',
         controller: 'IncidentsModalInstanceCtrl',
         controllerAs: 'incidentsModal',
         resolve: {
-          selectedTicketId: ticketId
+          selectedTicketId: ticketId,
+          ZenFactoryObject: ZenFactoryObject
         }
       });
-
     };
   }
   angular

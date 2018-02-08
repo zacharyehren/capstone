@@ -1,10 +1,11 @@
 (function() {
-  function IncidentsModalInstanceCtrl($uibModalInstance, ZenFactory, SortData, $cookies, selectedTicketId) {
+  function IncidentsModalInstanceCtrl($uibModalInstance, ZenFactory, SortData, $cookies, selectedTicketId, ZenFactoryObject) {
 
     this.sortClass = "";
     this.selected = "";
 
     this.selectedTicket = selectedTicketId;
+    this.ZenFactoryObject = ZenFactoryObject;
 
     this.sortData = function(sortType) {
       if (this.selected != sortType) {
@@ -26,7 +27,7 @@
 
     var returnIncidents = function() {
       this.incidentsArray = [];
-      var incidents = ZenFactory.unsolvedTickets.incidents;
+      var incidents = this.ZenFactoryObject["incidents"];
       for (var i = 0; i < incidents.length; i++){
         if (this.selectedTicket == incidents[i].problem_id) {
           this.incidentsArray.push(incidents[i]);
@@ -52,5 +53,5 @@
 
   angular
     .module('capstone')
-    .controller('IncidentsModalInstanceCtrl', ['$uibModalInstance', 'ZenFactory', 'SortData', '$cookies', 'selectedTicketId', IncidentsModalInstanceCtrl]);
+    .controller('IncidentsModalInstanceCtrl', ['$uibModalInstance', 'ZenFactory', 'SortData', '$cookies', 'selectedTicketId', 'ZenFactoryObject', IncidentsModalInstanceCtrl]);
 })();
