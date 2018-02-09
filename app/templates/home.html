@@ -24,9 +24,31 @@
         Last Updated
         <div ng-class="home.sortClass" ng-show="selected == 'updated_at'"></div>
       </th>
-      <th ng-click="home.sortData('status'); selected = 'status'">
+      <th ng-click="home.sortData('status'); selected = 'status'" ng-mouseover="home.statusHover = true" ng-mouseleave="home.statusHover = false">
         Ticket Status*
         <div ng-class="home.sortClass" ng-show="selected == 'status'"></div>
+        <table class="table table-bordered table-striped status-key" ng-show="home.statusHover">
+          <th class="status-key-header">
+            Open
+          </th>
+          <th class="status-key-header">
+            Pending
+          </th>
+          <th class="status-key-header">
+            Hold
+          </th>
+          <tr>
+            <td class="status-key-data">
+              Support is investigating and will follow-up with an update
+            </td>
+            <td class="status-key-data">
+              Waiting on response from CSM <strong>OR</strong> Support waiting on response from Product/Engineering
+            </td>
+            <td class="status-key-data">
+              Engineering is in progress of investigating/resolving
+            </td>
+          </tr>
+        </table>
       </th>
     </tr>
   </thead>

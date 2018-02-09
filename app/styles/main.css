@@ -32,31 +32,31 @@ th {
 
 .up-carat {
   display: inline-block;
-    width: 0;
-    height: 0;
-    margin-left: 2px;
-    vertical-align: middle;
-    border-top: 4px dashed;
-    border-right: 4px solid transparent;
-    border-left: 4px solid transparent;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
 }
 
-.up-carat ~ .up-carat {
-display: none;
+.up-carat~.up-carat {
+  display: none;
 }
 
 .down-carat {
   display: inline-block;
-    width: 0;
-    height: 0;
-    margin-left: 2px;
-    vertical-align: middle;
-    border-bottom: 4px dashed;
-    border-right: 4px solid transparent;
-    border-left: 4px solid transparent;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-bottom: 4px dashed;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
 }
 
-.desc-carat.carat{
+.desc-carat.carat {
   border-top: 0;
   border-bottom: 4px dashed;
 }
@@ -68,6 +68,7 @@ display: none;
 .modal-content {
   padding: 10px;
 }
+
 /*left bar */
 
 .local-nav {
@@ -140,7 +141,7 @@ display: none;
   text-align: center;
   height: 36px;
   padding-top: 7px;
-  font-family: Roboto,arial,sans-serif;
+  font-family: Roboto, arial, sans-serif;
   font-size: 13px;
   cursor: pointer;
 }
@@ -178,6 +179,26 @@ display: none;
 .alert-text {
   margin: auto;
   text-align: center;
+}
+
+.status-key {
+  position: absolute;
+  width: 50px !important;
+  right: 418px;
+  top: 171px;
+}
+
+.status-key-header {
+  background: #32bf92;
+}
+
+.status-key-data {
+  background: #152567;
+  color: #99a4d1;
+  font-family: Metric, sans-serif;
+  font-size: 16px;
+  line-height: 1.42857143;
+  font-weight: normal;
 }
 
 /*ticket.html*/
