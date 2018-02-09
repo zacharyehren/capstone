@@ -37,7 +37,7 @@
     </ul>
 
     <div ng-controller="IndexCtrl as index">
-      <h4 class="username">{{ index.user.userObject["name"] }}</h4>
+      <h4 class="username">{{ index.user }}</h4>
       <div class="g-signin2" data-onsuccess="onSignIn" ng-hide="index.userSignedIn()"></div>
       <a class="sign-out" ng-show="index.userSignedIn()" ng-click="index.signOut()">
         <div class="abcRioButtonIcon" style="padding:8px">

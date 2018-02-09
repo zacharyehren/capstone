@@ -11,7 +11,7 @@
 
     this.ZenFactory = ZenFactory;
 
-    this.user = GoogleOauth;
+    this.user = $cookies.get('zendeskUserName');
 
     this.signOut = function() {
       GoogleOauth.signOut();
