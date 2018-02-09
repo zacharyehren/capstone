@@ -61,14 +61,6 @@ th {
   border-bottom: 4px dashed;
 }
 
-.btn-incident {
-  margin-left: 10px;
-}
-
-.modal-content {
-  padding: 10px;
-}
-
 /*left bar */
 
 .local-nav {
@@ -158,7 +150,7 @@ th {
   height: 50px;
 }
 
-/*home.html*/
+/*home.html, myTicket.html, closedTickets.html */
 
 .ticket-title {
   color: #32bf92;
@@ -199,6 +191,15 @@ th {
   font-size: 16px;
   line-height: 1.42857143;
   font-weight: normal;
+}
+
+.incident-btn-align {
+  display: inline-grid;
+}
+
+.incident-btn {
+  margin-top: 5px;
+  width: 176.672px;
 }
 
 /*ticket.html*/
@@ -350,4 +351,10 @@ th {
     transform: perspective(140px) rotateY(180deg);
     opacity: 0;
   }
+}
+
+/* incidents modal */
+
+.modal-content {
+  padding: 10px;
 }
