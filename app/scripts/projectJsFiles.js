@@ -46,6 +46,37 @@
   })();
 
 (function() {
+  function SortData(ZenFactory, $cookies) {
+    var sort = "";
+    var selected = "";
+
+    SortData.ticketSort = function(sortType, ZenFactoryObject) {
+      if (sort == "" || sort == "desc" || selected != sortType) {
+        sort = "asc";
+        selected = sortType;
+        // Ex: ZenFactory[myTicketData][subject].sort...
+        ZenFactory[ZenFactoryObject]['ticket'].sort(function(a, b) {
+          return a[sortType].localeCompare(b[sortType]);
+        });
+      } else if (sort == "asc"){
+        sort = "desc";
+        ZenFactory[ZenFactoryObject]['ticket'].sort(function(a, b) {
+          return b[sortType].localeCompare(a[sortType]);
+        });
+      }
+    }
+
+    return SortData;
+
+  };
+
+
+  angular
+    .module('capstone')
+    .factory('SortData', ['ZenFactory', '$cookies', SortData]);
+})();
+
+(function() {
   function ZenFactory($http, $cookies) {
 
     var ZenFactory = {};
@@ -154,34 +185,51 @@
 })();
 
 (function() {
-  function SortData(ZenFactory, $cookies) {
-    var sort = "";
-    var selected = "";
+  function ClosedTicketCtrl(GoogleOauth, ZenFactory, SortData, $cookies, $location, $anchorScroll, $scope, $stateParams) {
+    this.sortClass = "";
+    this.selected = "";
 
-    SortData.ticketSort = function(sortType, ZenFactoryObject) {
-      if (sort == "" || sort == "desc" || selected != sortType) {
-        sort = "asc";
-        selected = sortType;
-        // Ex: ZenFactory[myTicketData][subject].sort...
-        ZenFactory[ZenFactoryObject]['ticket'].sort(function(a, b) {
-          return a[sortType].localeCompare(b[sortType]);
-        });
-      } else if (sort == "asc"){
-        sort = "desc";
-        ZenFactory[ZenFactoryObject]['ticket'].sort(function(a, b) {
-          return b[sortType].localeCompare(a[sortType]);
-        });
+    this.sortData = function(sortType) {
+      if (this.selected != sortType) {
+        this.sortClass = "";
+      }
+      this.selected = sortType;
+      if (this.sortClass == "" || this.sortClass == "down-carat") {
+        this.sortClass = "up-carat";
+        SortData.ticketSort(sortType, "closedTickets");
+      } else if (this.sortClass == "up-carat") {
+        this.sortClass = "down-carat";
+        SortData.ticketSort(sortType, "closedTickets");
       }
     }
 
-    return SortData;
+    this.loading = true;
 
-  };
+    var closedTicketsHandler = function(){
+      this.loading = false;
+    }
 
+    closedTicketsHandler = closedTicketsHandler.bind(this);
+
+    ZenFactory.listClosedTickets().then(closedTicketsHandler);
+
+    this.ZenFactory = ZenFactory;
+
+    this.passTicketInfo = function(ticketId, ticketSubject) {
+      $cookies.put('zendeskTicketId', ticketId);
+      $cookies.put('zendeskTicketSubject', ticketSubject)
+    }
+
+    // Moves view to the top of the page when selecting different tickets
+    $scope.$watchCollection('$stateParams', function() {
+      $anchorScroll();
+    });
+
+  }
 
   angular
     .module('capstone')
-    .factory('SortData', ['ZenFactory', '$cookies', SortData]);
+    .controller('ClosedTicketCtrl', ['GoogleOauth', 'ZenFactory', 'SortData', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', ClosedTicketCtrl]);
 })();
 
 (function() {
@@ -247,187 +295,6 @@
   angular
     .module('capstone')
     .controller('HomeCtrl', ['GoogleOauth', 'ZenFactory', 'SortData', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', HomeCtrl]);
-})();
-
-(function() {
-  function TicketCtrl(ZenFactory, $cookies, $location, $anchorScroll, $scope, $stateParams) {
-
-    this.loading = true;
-
-    var listTicketHandler = function(){
-      this.loading = false;
-    }
-
-    listTicketHandler = listTicketHandler.bind(this);
-    ZenFactory.returnTicket().then(listTicketHandler);
-
-    this.ZenFactory = ZenFactory;
-
-    this.ticketSubject = $cookies.get('zendeskTicketSubject')
-
-    this.createComment = function() {
-      this.submitted = true;
-      ZenFactory.createComment(this.commentBody);
-      location.reload();
-    };
-
-    // Moves view to the top of the page when selecting different tickets
-    $scope.$watchCollection('$stateParams', function() {
-      $anchorScroll();
-   });
-
-  }
-
-  angular
-    .module('capstone')
-    .controller('TicketCtrl', ['ZenFactory', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', TicketCtrl]);
-})();
-
-(function() {
-  function NewTicketCtrl(GoogleOauth, ZenFactory, $cookies, $location) {
-
-    this.ZenFactory = ZenFactory;
-
-    this.submitter = $cookies.get('zendeskUserEmail');
-
-    this.createTicket = function() {
-      ZenFactory.createTicket(this.subject, this.comment);
-       $location.path('/');
-    };
-
-  }
-
-  angular
-    .module('capstone')
-    .controller('NewTicketCtrl', ['GoogleOauth', 'ZenFactory', '$cookies', '$location', NewTicketCtrl]);
-})();
-
-(function() {
-  function IndexCtrl(GoogleOauth, ZenFactory, $cookies) {
-
-    this.userSignedIn  = function() {
-      if ($cookies.get('zendeskUserEmail') != undefined) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-
-    this.ZenFactory = ZenFactory;
-
-    this.user = $cookies.get('zendeskUserName');
-
-    this.signOut = function() {
-      GoogleOauth.signOut();
-      var cookies = $cookies.getAll();
-        angular.forEach(cookies, function (value, key) {
-          $cookies.remove(key);
-        });
-        window.location = '/';
-    };
-
-  }
-
-  angular
-    .module('capstone')
-    .controller('IndexCtrl', ['GoogleOauth', 'ZenFactory', '$cookies', IndexCtrl]);
-})();
-
-(function() {
-  function ClosedTicketCtrl(GoogleOauth, ZenFactory, SortData, $cookies, $location, $anchorScroll, $scope, $stateParams) {
-    this.sortClass = "";
-    this.selected = "";
-
-    this.sortData = function(sortType) {
-      if (this.selected != sortType) {
-        this.sortClass = "";
-      }
-      this.selected = sortType;
-      if (this.sortClass == "" || this.sortClass == "down-carat") {
-        this.sortClass = "up-carat";
-        SortData.ticketSort(sortType, "closedTickets");
-      } else if (this.sortClass == "up-carat") {
-        this.sortClass = "down-carat";
-        SortData.ticketSort(sortType, "closedTickets");
-      }
-    }
-
-    this.loading = true;
-
-    var closedTicketsHandler = function(){
-      this.loading = false;
-    }
-
-    closedTicketsHandler = closedTicketsHandler.bind(this);
-
-    ZenFactory.listClosedTickets().then(closedTicketsHandler);
-
-    this.ZenFactory = ZenFactory;
-
-    this.passTicketInfo = function(ticketId, ticketSubject) {
-      $cookies.put('zendeskTicketId', ticketId);
-      $cookies.put('zendeskTicketSubject', ticketSubject)
-    }
-
-    // Moves view to the top of the page when selecting different tickets
-    $scope.$watchCollection('$stateParams', function() {
-      $anchorScroll();
-    });
-
-  }
-
-  angular
-    .module('capstone')
-    .controller('ClosedTicketCtrl', ['GoogleOauth', 'ZenFactory', 'SortData', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', ClosedTicketCtrl]);
-})();
-
-(function() {
-  function MyTicketCtrl(GoogleOauth, ZenFactory, SortData, $cookies, $location, $anchorScroll, $scope, $stateParams) {
-    this.sortClass = "";
-    this.selected = "";
-
-    this.sortData = function(sortType) {
-      if (this.selected != sortType) {
-        this.sortClass = "";
-      }
-      this.selected = sortType;
-      if (this.sortClass == "" || this.sortClass == "down-carat") {
-        this.sortClass = "up-carat";
-        SortData.ticketSort(sortType, "myTicketData");
-      } else if (this.sortClass == "up-carat") {
-        this.sortClass = "down-carat";
-        SortData.ticketSort(sortType, "myTicketData");
-      }
-    }
-
-    this.loading = true;
-
-    var myTicketsHandler = function() {
-      this.loading = false;
-    }
-
-    myTicketsHandler = myTicketsHandler.bind(this);
-
-    ZenFactory.listMyTickets().then(myTicketsHandler);
-
-    this.ZenFactory = ZenFactory;
-
-    this.passTicketInfo = function(ticketId, ticketSubject) {
-      $cookies.put('zendeskTicketId', ticketId);
-      $cookies.put('zendeskTicketSubject', ticketSubject)
-    }
-
-    // Moves view to the top of the page when selecting different tickets
-    $scope.$watchCollection('$stateParams', function() {
-      $anchorScroll();
-    });
-
-
-  }
-
-  angular
-    .module('capstone')
-    .controller('MyTicketCtrl', ['GoogleOauth', 'ZenFactory', 'SortData', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', MyTicketCtrl]);
 })();
 
 (function(){
@@ -507,4 +374,137 @@
   angular
     .module('capstone')
     .controller('IncidentsModalInstanceCtrl', ['$uibModalInstance', 'ZenFactory', 'SortData', '$cookies', 'selectedTicketId', 'ZenFactoryObject', IncidentsModalInstanceCtrl]);
+})();
+
+(function() {
+  function IndexCtrl(GoogleOauth, ZenFactory, $cookies) {
+
+    this.userSignedIn  = function() {
+      if ($cookies.get('zendeskUserEmail') != undefined) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    this.ZenFactory = ZenFactory;
+
+    this.user = $cookies.get('zendeskUserName');
+
+    this.signOut = function() {
+      GoogleOauth.signOut();
+      var cookies = $cookies.getAll();
+        angular.forEach(cookies, function (value, key) {
+          $cookies.remove(key);
+        });
+        window.location = '/';
+    };
+
+  }
+
+  angular
+    .module('capstone')
+    .controller('IndexCtrl', ['GoogleOauth', 'ZenFactory', '$cookies', IndexCtrl]);
+})();
+
+(function() {
+  function MyTicketCtrl(GoogleOauth, ZenFactory, SortData, $cookies, $location, $anchorScroll, $scope, $stateParams) {
+    this.sortClass = "";
+    this.selected = "";
+
+    this.sortData = function(sortType) {
+      if (this.selected != sortType) {
+        this.sortClass = "";
+      }
+      this.selected = sortType;
+      if (this.sortClass == "" || this.sortClass == "down-carat") {
+        this.sortClass = "up-carat";
+        SortData.ticketSort(sortType, "myTicketData");
+      } else if (this.sortClass == "up-carat") {
+        this.sortClass = "down-carat";
+        SortData.ticketSort(sortType, "myTicketData");
+      }
+    }
+
+    this.loading = true;
+
+    var myTicketsHandler = function() {
+      this.loading = false;
+    }
+
+    myTicketsHandler = myTicketsHandler.bind(this);
+
+    ZenFactory.listMyTickets().then(myTicketsHandler);
+
+    this.ZenFactory = ZenFactory;
+
+    this.passTicketInfo = function(ticketId, ticketSubject) {
+      $cookies.put('zendeskTicketId', ticketId);
+      $cookies.put('zendeskTicketSubject', ticketSubject)
+    }
+
+    // Moves view to the top of the page when selecting different tickets
+    $scope.$watchCollection('$stateParams', function() {
+      $anchorScroll();
+    });
+
+
+  }
+
+  angular
+    .module('capstone')
+    .controller('MyTicketCtrl', ['GoogleOauth', 'ZenFactory', 'SortData', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', MyTicketCtrl]);
+})();
+
+(function() {
+  function NewTicketCtrl(GoogleOauth, ZenFactory, $cookies, $location) {
+
+    this.ZenFactory = ZenFactory;
+
+    this.submitter = $cookies.get('zendeskUserEmail');
+
+    this.createTicket = function() {
+      ZenFactory.createTicket(this.subject, this.comment);
+       $location.path('/');
+    };
+
+  }
+
+  angular
+    .module('capstone')
+    .controller('NewTicketCtrl', ['GoogleOauth', 'ZenFactory', '$cookies', '$location', NewTicketCtrl]);
+})();
+
+(function() {
+  function TicketCtrl(ZenFactory, $cookies, $location, $anchorScroll, $scope, $stateParams) {
+
+    this.loading = true;
+
+    var listTicketHandler = function(){
+      this.loading = false;
+    }
+
+    listTicketHandler = listTicketHandler.bind(this);
+    ZenFactory.returnTicket().then(listTicketHandler);
+
+    this.ZenFactory = ZenFactory;
+
+    this.ticketSubject = $cookies.get('zendeskTicketSubject')
+
+    this.createComment = function() {
+      this.submitted = true;
+      ZenFactory.createComment(this.commentBody);
+      location.reload();
+    };
+
+    // Moves view to the top of the page when selecting different tickets
+    $scope.$watchCollection('$stateParams', function() {
+      $anchorScroll();
+   });
+
+  }
+
+  angular
+    .module('capstone')
+    .controller('TicketCtrl', ['ZenFactory', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', TicketCtrl]);
 })();

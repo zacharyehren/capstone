@@ -1,0 +1,360 @@
+ul {
+  list-style-type: none;
+}
+
+li {
+  margin-bottom: 1em;
+}
+
+li a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+li a:focus {
+  outline: none;
+}
+
+h2 {
+  font-size: 32px;
+  font-weight: bold;
+  font-family: 'Metric', sans-serif;
+  margin: 40px 0 !important;
+}
+
+th {
+  cursor: pointer;
+}
+
+.bottom-space {
+  height: 100px
+}
+
+.up-carat {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+.up-carat~.up-carat {
+  display: none;
+}
+
+.down-carat {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-bottom: 4px dashed;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+.desc-carat.carat {
+  border-top: 0;
+  border-bottom: 4px dashed;
+}
+
+/*left bar */
+
+.local-nav {
+  position: fixed;
+  width: 220px;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: 2;
+  overflow-y: auto;
+  background: #152567;
+  color: #586676;
+}
+
+.local-content {
+  padding: 0 100px 0 300px;
+}
+
+.global-options {
+  color: #99a4d1;
+  font-family: Metric, sans-serif;
+  font-size: 16px;
+  line-height: 1.42857143;
+}
+
+.global-options-container {
+  padding: 0 1em;
+}
+
+.logo-container {
+  padding-top: 1.5em;
+  padding-bottom: 2em;
+  margin-left: 1em;
+}
+
+.username {
+  font-family: Metric, sans-serif;
+  font-size: 20px;
+  color: white;
+  margin-left: 16px;
+  position: fixed;
+  z-index: 3;
+  bottom: 35px;
+}
+
+.abcRioButton, .sign-out {
+  width: 220px !important;
+  position: fixed !important;
+  z-index: 3;
+  bottom: 0 !important;
+}
+
+.sign-out .abcRioButtonIcon {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 8px;
+  padding: 0 !important;
+}
+
+.abcRioButtonContents {
+  margin-right: 29px !important;
+}
+
+.sign-out {
+  background-color: #fff;
+  color: #757575;
+  margin: auto;
+  text-align: center;
+  height: 36px;
+  padding-top: 7px;
+  font-family: Roboto, arial, sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.sign-in-container {
+  left: 0;
+  width: 220px;
+  margin: 0;
+  position: fixed;
+  z-index: 3;
+  bottom: 0;
+  color: #99a4d1;
+  background: #111e55;
+  height: 50px;
+}
+
+/*home.html, myTicket.html, closedTickets.html */
+
+.ticket-title {
+  color: #32bf92;
+}
+
+.jumbotron {
+  background: #f9f9f9 !important;
+}
+
+.jumbo-text {
+  margin-left: 7px;
+}
+
+.alert-box {
+  margin-top: 10px;
+}
+
+.alert-text {
+  margin: auto;
+  text-align: center;
+}
+
+.status-key {
+  position: absolute;
+  width: 50px !important;
+  right: 418px;
+  top: 171px;
+}
+
+.status-key-header {
+  background: #32bf92;
+}
+
+.status-key-data {
+  background: #152567;
+  color: #99a4d1;
+  font-family: Metric, sans-serif;
+  font-size: 16px;
+  line-height: 1.42857143;
+  font-weight: normal;
+}
+
+.incident-btn-align {
+  display: inline-grid;
+}
+
+.incident-btn {
+  margin-top: 5px;
+  width: 176.672px;
+}
+
+/*ticket.html*/
+
+.card-block:nth-child(odd) {
+  background: #f2fafd;
+}
+
+.card-block {
+  border-bottom: solid 1px #d7d9db;
+  padding-top: 1px;
+}
+
+.update-ticket {
+  margin-top: 30px;
+}
+
+.card-title {
+  padding: 9.5px;
+  font-size: 18px !important;
+}
+
+.ticket-body.ng-binding {
+  font-family: inherit;
+  background: none;
+  border: none;
+  font-size: 15px;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-break: break-word;
+}
+
+.ticket-page-title {
+  font-size: 30px;
+}
+
+/*loading spinner*/
+
+.loading-display {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.sk-folding-cube {
+  margin: 20px auto;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  -webkit-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+  opacity: 0.5;
+}
+
+.sk-folding-cube .sk-cube {
+  float: left;
+  width: 50%;
+  height: 50%;
+  position: relative;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.sk-folding-cube .sk-cube:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(21, 37, 103);
+  -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+  animation: sk-foldCubeAngle 2.4s infinite linear both;
+  -webkit-transform-origin: 100% 100%;
+  -ms-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
+}
+
+.sk-folding-cube .sk-cube2 {
+  -webkit-transform: scale(1.1) rotateZ(90deg);
+  transform: scale(1.1) rotateZ(90deg);
+}
+
+.sk-folding-cube .sk-cube3 {
+  -webkit-transform: scale(1.1) rotateZ(180deg);
+  transform: scale(1.1) rotateZ(180deg);
+}
+
+.sk-folding-cube .sk-cube4 {
+  -webkit-transform: scale(1.1) rotateZ(270deg);
+  transform: scale(1.1) rotateZ(270deg);
+}
+
+.sk-folding-cube .sk-cube2:before {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.sk-folding-cube .sk-cube3:before {
+  -webkit-animation-delay: 0.6s;
+  animation-delay: 0.6s;
+}
+
+.sk-folding-cube .sk-cube4:before {
+  -webkit-animation-delay: 0.9s;
+  animation-delay: 0.9s;
+}
+
+@-webkit-keyframes sk-foldCubeAngle {
+  0%, 10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+    transform: perspective(140px) rotateX(-180deg);
+    opacity: 0;
+  }
+  25%, 75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+    transform: perspective(140px) rotateX(0deg);
+    opacity: 1;
+  }
+  90%, 100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sk-foldCubeAngle {
+  0%, 10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+    transform: perspective(140px) rotateX(-180deg);
+    opacity: 0;
+  }
+  25%, 75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+    transform: perspective(140px) rotateX(0deg);
+    opacity: 1;
+  }
+  90%, 100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
+  }
+}
+
+/* incidents modal */
+
+.modal-content {
+  padding: 10px;
+}

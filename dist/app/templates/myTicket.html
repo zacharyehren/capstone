@@ -1,0 +1,66 @@
+<ng-include src="'/templates/loading.html'" ng-show="myTickets.loading"></ng-include>
+<h2>My Tickets</h2>
+<table class="table table-bordered table-striped platform-spacing">
+  <thead>
+    <tr>
+      <th ng-click="myTickets.sortData('subject'); selected ='subject'">
+          Title
+        <div ng-class="myTickets.sortClass" ng-show="selected == 'subject'"></div>
+      </th>
+      <th ng-click="myTickets.sortData('created_at'); selected = 'created_at'">
+        Date Submitted
+        <div ng-class="myTickets.sortClass" ng-show="selected == 'created_at'"></div>
+      </th>
+      <th ng-click="myTickets.sortData('updated_at'); selected = 'updated_at'">
+        Last Updated
+        <div ng-class="myTickets.sortClass" ng-show="selected == 'updated_at'"></div>
+      </th>
+      <th ng-click="myTickets.sortData('status'); selected = 'status'">
+        Ticket Status*
+        <div ng-class="myTickets.sortClass" ng-show="selected == 'status'"></div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="ticket in myTickets.ZenFactory.myTicketData.ticket">
+      <td>
+        <a ui-sref="ticket" ng-click="myTickets.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
+            {{ ticket.subject }}
+          </a>
+      </td>
+      <td>
+        {{ ticket.created_at | date:'mediumDate' }}
+      </td>
+      <td>
+        {{ ticket.updated_at | date:'mediumDate' }}
+      </td>
+      <td>
+        {{ ticket.status }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3>*Ticket Status key</h3>
+<table class="table table-bordered table-striped">
+  <th>
+    Open
+  </th>
+  <th>
+    Pending
+  </th>
+  <th>
+    Hold
+  </th>
+  <tr>
+    <td>
+      Support is investigating and will follow-up with an update
+    </td>
+    <td>
+      Waiting on response from CSM <strong>OR</strong> Support waiting on response from Product/Engineering
+    </td>
+    <td>
+      Engineering is in progress of investigating/resolving
+    </td>
+  </tr>
+</table>
+<div class="bottom-space"></div>

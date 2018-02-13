@@ -1,0 +1,46 @@
+<ng-include src="'/templates/loading.html'" ng-show="closedTickets.loading"></ng-include>
+<h2>Closed Tickets (Past Two Weeks)</h2>
+<table class="table table-bordered table-striped platform-spacing">
+  <thead>
+    <tr>
+      <th ng-click="closedTickets.sortData('subject'); selected ='subject'">
+        Title
+        <div ng-class="closedTickets.sortClass" ng-show="selected == 'subject'"></div>
+      </th>
+      <th ng-click="closedTickets.sortData('username'); selected ='username'">
+        Submitter
+        <div ng-class="closedTickets.sortClass" ng-show="selected == 'username'"></div>
+      </th>
+      <th ng-click="closedTickets.sortData('created_at'); selected ='created_at'">
+        Date Submitted
+        <div ng-class="closedTickets.sortClass" ng-show="selected == 'created_at'"></div>
+      </th>
+      <th ng-click="closedTickets.sortData('updated_at'); selected ='updated_at'">
+        Date Closed
+        <div ng-class="closedTickets.sortClass" ng-show="selected == 'updated_at'"></div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="ticket in closedTickets.ZenFactory.closedTickets.ticket">
+      <td>
+        <div class="incident-btn-align">
+          <a ui-sref="ticket" ng-click="closedTickets.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
+            {{ ticket.subject }}
+          </a>
+          <button ng-show="ticket.hasIncident == true" button type="button" class="btn btn-warning incident-btn" ng-controller="IncidentsModalCtrl as incidentsModal" ng-click="incidentsModal.openModal(ticket.id, closedTickets.ZenFactory.closedTickets);">This ticket has incidents</button>
+        </div>
+      </td>
+      <td>
+        {{ ticket.username }}
+      </td>
+      <td>
+        {{ ticket.created_at | date:'mediumDate' }}
+      </td>
+      <td>
+        {{ ticket.updated_at | date:'mediumDate' }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="bottom-space"></div>

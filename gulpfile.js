@@ -1,22 +1,41 @@
 "use strict";
 
 var gulp = require('gulp'),
-  concat = require('gulp-concat');
+  concat = require('gulp-concat'),
+  uglify = require('gulp-uglify'),
+  rename = require('gulp-rename'),
+     del = require('del');
 
 gulp.task("concatScripts", function(){
-  gulp.src(["/scripts/app.js",
-  "app/scripts/services/GoogleOauth.js",
-  "app/scripts/services/ZenFactory.js",
-  "app/scripts/services/SortData.js",
-  "app/scripts/controllers/HomeCtrl.js",
-  "app/scripts/controllers/TicketCtrl.js",
-  "app/scripts/controllers/NewTicketCtrl.js",
-  "app/scripts/controllers/IndexCtrl.js",
-  "app/scripts/controllers/ClosedTicketCtrl.js",
-  "app/scripts/controllers/MyTicketCtrl.js",
-  "app/scripts/controllers/IncidentsModalCtrl.js",
-  "app/scripts/controllers/IncidentsModalInstanceCtrl.js"
+  return gulp.src(["/scripts/app.js",
+  "app/scripts/services/*.js",
+  "app/scripts/controllers/*.js"
   ])
   .pipe(concat("projectJsFiles.js"))
   .pipe(gulp.dest("app/scripts"));
 });
+
+gulp.task("minifyScripts", ["concatScripts"], function(){
+  return gulp.src("app/scripts/projectJsFiles.js")
+    .pipe(uglify())
+    .pipe(rename("projectJsFiles.min.js"))
+    .pipe(gulp.dest("app/scripts"));
+});
+
+gulp.task("watchScripts", function(){
+  gulp.watch(["app/scripts/**/*.js", "app/scripts/app.js"], ["concatScripts"]);
+})
+
+gulp.task('clean', function(){
+  del(['dist', 'app/scripts/projectJsFiles.min.js']);
+});
+
+gulp.task("build", ["minifyScripts"], function(){
+  return gulp.src(["app/styles/main.css",
+  "app/templates/*.html",
+  "app/scripts/projectJsFiles.min.js",
+  "app/index.html"], {base: './'})
+  .pipe(gulp.dest('dist'));
+});
+
+gulp.task("default", ["build"]);
