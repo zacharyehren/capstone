@@ -4,6 +4,7 @@ var gulp = require('gulp'),
   concat = require('gulp-concat'),
   uglify = require('gulp-uglify'),
   rename = require('gulp-rename'),
+    maps = require('gulp-sourcemaps'),
      del = require('del');
 
 gulp.task("concatScripts", function(){
@@ -11,7 +12,9 @@ gulp.task("concatScripts", function(){
   "app/scripts/services/*.js",
   "app/scripts/controllers/*.js"
   ])
+  .pipe(maps.init())
   .pipe(concat("projectJsFiles.js"))
+  .pipe(maps.write('./'))
   .pipe(gulp.dest("app/scripts"));
 });
 

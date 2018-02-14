@@ -168,6 +168,7 @@
       };
       return $http(displayMyTickets).then(function successCallback(response) {
         ZenFactory.myTicketData = response.data;
+        e = ZenFactory.myTicketData;
       });
     };
 
@@ -549,3 +550,5 @@
     .module('capstone')
     .controller('TicketCtrl', ['ZenFactory', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', TicketCtrl]);
 })();
+
+//# sourceMappingURL=projectJsFiles.js.map
