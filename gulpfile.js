@@ -7,7 +7,7 @@ var gulp = require('gulp'),
      del = require('del');
 
 gulp.task("concatScripts", function(){
-  return gulp.src(["/scripts/app.js",
+  return gulp.src(["app/scripts/app.js",
   "app/scripts/services/*.js",
   "app/scripts/controllers/*.js"
   ])

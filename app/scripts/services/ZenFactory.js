@@ -35,7 +35,6 @@
       return $http(displayClosedTickets).then(function successCallback(response) {
         ZenFactory.closedTickets = response.data;
         findIncidents(ZenFactory.closedTickets);
-        console.log(ZenFactory.closedTickets)
       });
     };
 
