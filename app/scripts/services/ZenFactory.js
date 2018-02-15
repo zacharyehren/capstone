@@ -48,6 +48,13 @@
       };
       return $http(displayMyTickets).then(function successCallback(response) {
         ZenFactory.myTicketData = response.data;
+        // var myTickets = ZenFactory.myTicketData;
+        // for (var i = 0; i < myTickets.length; i++) {
+        //   if (myTickets[i].problem_id != null) {
+        //     myTickets[i].hasLinkedTicket = true;
+        //   }
+        // }
+        console.log(ZenFactory.myTicketData);
       });
     };
 

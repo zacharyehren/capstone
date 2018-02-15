@@ -168,7 +168,13 @@
       };
       return $http(displayMyTickets).then(function successCallback(response) {
         ZenFactory.myTicketData = response.data;
-        e = ZenFactory.myTicketData;
+        // var myTickets = ZenFactory.myTicketData;
+        // for (var i = 0; i < myTickets.length; i++) {
+        //   if (myTickets[i].problem_id != null) {
+        //     myTickets[i].hasLinkedTicket = true;
+        //   }
+        // }
+        console.log(ZenFactory.myTicketData);
       });
     };
 
@@ -354,6 +360,7 @@
         }
       });
     };
+
   }
   angular
     .module('capstone')
@@ -410,6 +417,10 @@
       $cookies.put('zendeskTicketSubject', ticketSubject);
       $uibModalInstance.close();
     }
+
+    this.closeModal = function() {
+      $uibModalInstance.dismiss();
+    };
 
   }
 

@@ -5,3 +5,5 @@ npm-debug.log
 .sass-cache/
 .DS_Store
 package.json
+app/scripts/projectJsFiles.js.map
+app/scripts/projectJsFiles.js

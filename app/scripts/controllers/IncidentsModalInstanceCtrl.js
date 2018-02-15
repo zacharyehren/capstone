@@ -49,6 +49,10 @@
       $uibModalInstance.close();
     }
 
+    this.closeModal = function() {
+      $uibModalInstance.dismiss();
+    };
+
   }
 
   angular
