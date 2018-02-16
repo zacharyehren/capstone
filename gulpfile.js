@@ -25,7 +25,7 @@ gulp.task("minifyScripts", ["concatScripts"], function(){
     .pipe(gulp.dest("app/scripts"));
 });
 
-gulp.task("watchScripts", function(){
+gulp.task("watch", function(){
   gulp.watch(["app/scripts/**/*.js", "app/scripts/app.js"], ["concatScripts"]);
 })
 

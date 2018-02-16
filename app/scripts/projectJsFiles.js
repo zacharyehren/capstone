@@ -123,13 +123,31 @@
 
     var ZenFactory = {};
 
-    var findIncidents = function(ZenFactoryObject){
+    // ZenFactory.myTickets = [];
+
+    // var findMyTickets = function(ZenFactoryObject) {
+    //   var tickets = ZenFactoryObject['ticket'];
+    //   var incidents = ZenFactoryObject['incidents'];
+    //   for (var i = 0; i < tickets.length; i++) {
+    //     if (tickets[i].username == $cookies.get('zendeskUserName')) {
+    //       ZenFactory.myTickets.push(tickets[i]);
+    //     }
+    //   }
+    //   for (var p = 0; p < incidents.length; p++) {
+    //     if (incidents[p].username == $cookies.get('zendeskUserName')) {
+    //       ZenFactory.myTickets.push(incidents[p]);
+    //     }
+    //   }
+    // }
+
+    var findIncidentTickets = function(ZenFactoryObject) {
       var tickets = ZenFactoryObject['ticket'];
       var incidents = ZenFactoryObject['incidents'];
       for (var i = 0; i < tickets.length; i++) {
-        for (var p = 0; p < incidents.length; p++)
-        if(tickets[i].id == incidents[p].problem_id) {
-          tickets[i].hasIncident = true;
+        for (var p = 0; p < incidents.length; p++) {
+          if (tickets[i].id == incidents[p].problem_id) {
+            tickets[i].hasIncident = true;
+          }
         }
       }
     }
@@ -142,7 +160,7 @@
 
       return $http(displayTickets).then(function successCallback(response) {
         ZenFactory.unsolvedTickets = response.data;
-        findIncidents(ZenFactory.unsolvedTickets);
+        findIncidentTickets(ZenFactory.unsolvedTickets);
       });
     };
 
@@ -154,7 +172,7 @@
 
       return $http(displayClosedTickets).then(function successCallback(response) {
         ZenFactory.closedTickets = response.data;
-        findIncidents(ZenFactory.closedTickets);
+        findIncidentTickets(ZenFactory.closedTickets);
       });
     };
 
@@ -171,23 +189,23 @@
       });
     };
 
-      ZenFactory.createTicket = function(subject, comment) {
-        var createTicket = {
-          method: 'POST',
-          url: 'http://localhost:3000/api/tickets',
-          data: {
-            subject: subject,
-            comment_body: comment,
-            submitter_email: $cookies.get('zendeskUserEmail'),
-            submitter_name: $cookies.get('zendeskUserName')
-          }
-        };
-
-
-        $http(createTicket).then(function successCallback(response) {
-          ZenFactory.newTicket = response.data;
-        });
+    ZenFactory.createTicket = function(subject, comment) {
+      var createTicket = {
+        method: 'POST',
+        url: 'http://localhost:3000/api/tickets',
+        data: {
+          subject: subject,
+          comment_body: comment,
+          submitter_email: $cookies.get('zendeskUserEmail'),
+          submitter_name: $cookies.get('zendeskUserName')
+        }
       };
+
+
+      $http(createTicket).then(function successCallback(response) {
+        ZenFactory.newTicket = response.data;
+      });
+    };
 
     ZenFactory.returnTicket = function() {
       var ticketInfo = {
@@ -500,6 +518,92 @@
   angular
     .module('capstone')
     .controller('MyTicketCtrl', ['GoogleOauth', 'ZenFactory', 'SortData', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', MyTicketCtrl]);
+})();
+
+(function(){
+  function MyTicketsModalCtrl($uibModal) {
+
+    this.openModal = function(ticketProblemId, ZenFactoryObject) {
+      var modalInstance = $uibModal.open({
+        animation: this.animationsEnabled,
+        templateUrl: '/templates/myTicketsModal.html',
+        controller: 'MyTicketsModalInstanceCtrl',
+        controllerAs: 'myTicketsModal',
+        resolve: {
+          ticketProblemId: ticketProblemId,
+          ZenFactoryObject: ZenFactoryObject
+        }
+      });
+    };
+
+  }
+  angular
+    .module('capstone')
+    .controller('MyTicketsModalCtrl', ['$uibModal', MyTicketsModalCtrl]);
+})();
+
+(function() {
+  function MyTicketsModalInstanceCtrl($uibModalInstance, ZenFactory, SortData, $cookies, ticketProblemId, ZenFactoryObject) {
+
+    this.sortClass = "";
+    this.selected = "";
+
+    this.selectedTicket = ticketProblemId;
+    this.ZenFactoryObject = ZenFactoryObject;
+
+    // this.sortData = function(sortType) {
+    //   if (this.selected != sortType) {
+    //     this.sortClass = "";
+    //   }
+    //   this.selected = sortType;
+    //   if (this.sortClass == "" || this.sortClass == "down-carat") {
+    //     this.sortClass = "up-carat";
+    //     this.incidentsArray.sort(function(a, b) {
+    //       return a[sortType].localeCompare(b[sortType]);
+    //     });
+    //   } else if (this.sortClass == "up-carat") {
+    //     this.sortClass = "down-carat";
+    //     this.incidentsArray.sort(function(a, b) {
+    //       return b[sortType].localeCompare(a[sortType]);
+    //     });
+    //   }
+    // }
+
+    var returnProblems = function() {
+      this.problemsArray = [];
+      ZenFactory.listTickets();
+      var problems = this.ZenFactoryObject.ticket;
+      for (var i = 0; i < problems.length; i++){
+        if (this.selectedTicket == problems[i].id) {
+          this.problemsArray.push(problems[i]);
+        }
+      }
+      console.log(this.problemsArray);
+    }
+
+    returnProblems = returnProblems.bind(this);
+
+    returnProblems();
+
+    this.ZenFactory = ZenFactory;
+
+    // this.ticketSubject = $cookies.get('zendeskTicketSubject');
+    //
+    // this.passTicketInfo = function(ticketId, ticketSubject) {
+    //   $cookies.put('zendeskTicketId', ticketId);
+    //   $cookies.put('zendeskTicketSubject', ticketSubject);
+    //   $uibModalInstance.close();
+    // }
+
+    this.closeModal = function() {
+      $uibModalInstance.dismiss();
+    };
+
+  }
+
+  angular
+    .module('capstone')
+    .controller('MyTicketsModalInstanceCtrl', ['$uibModalInstance', 'ZenFactory', 'SortData', '$cookies', 'ticketProblemId', 'ZenFactoryObject', MyTicketsModalInstanceCtrl]);
 })();
 
 (function() {

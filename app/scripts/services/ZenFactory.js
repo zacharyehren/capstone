@@ -3,13 +3,31 @@
 
     var ZenFactory = {};
 
-    var findIncidents = function(ZenFactoryObject){
+    // ZenFactory.myTickets = [];
+
+    // var findMyTickets = function(ZenFactoryObject) {
+    //   var tickets = ZenFactoryObject['ticket'];
+    //   var incidents = ZenFactoryObject['incidents'];
+    //   for (var i = 0; i < tickets.length; i++) {
+    //     if (tickets[i].username == $cookies.get('zendeskUserName')) {
+    //       ZenFactory.myTickets.push(tickets[i]);
+    //     }
+    //   }
+    //   for (var p = 0; p < incidents.length; p++) {
+    //     if (incidents[p].username == $cookies.get('zendeskUserName')) {
+    //       ZenFactory.myTickets.push(incidents[p]);
+    //     }
+    //   }
+    // }
+
+    var findIncidentTickets = function(ZenFactoryObject) {
       var tickets = ZenFactoryObject['ticket'];
       var incidents = ZenFactoryObject['incidents'];
       for (var i = 0; i < tickets.length; i++) {
-        for (var p = 0; p < incidents.length; p++)
-        if(tickets[i].id == incidents[p].problem_id) {
-          tickets[i].hasIncident = true;
+        for (var p = 0; p < incidents.length; p++) {
+          if (tickets[i].id == incidents[p].problem_id) {
+            tickets[i].hasIncident = true;
+          }
         }
       }
     }
@@ -22,7 +40,7 @@
 
       return $http(displayTickets).then(function successCallback(response) {
         ZenFactory.unsolvedTickets = response.data;
-        findIncidents(ZenFactory.unsolvedTickets);
+        findIncidentTickets(ZenFactory.unsolvedTickets);
       });
     };
 
@@ -34,7 +52,7 @@
 
       return $http(displayClosedTickets).then(function successCallback(response) {
         ZenFactory.closedTickets = response.data;
-        findIncidents(ZenFactory.closedTickets);
+        findIncidentTickets(ZenFactory.closedTickets);
       });
     };
 
@@ -51,23 +69,23 @@
       });
     };
 
-      ZenFactory.createTicket = function(subject, comment) {
-        var createTicket = {
-          method: 'POST',
-          url: 'http://localhost:3000/api/tickets',
-          data: {
-            subject: subject,
-            comment_body: comment,
-            submitter_email: $cookies.get('zendeskUserEmail'),
-            submitter_name: $cookies.get('zendeskUserName')
-          }
-        };
-
-
-        $http(createTicket).then(function successCallback(response) {
-          ZenFactory.newTicket = response.data;
-        });
+    ZenFactory.createTicket = function(subject, comment) {
+      var createTicket = {
+        method: 'POST',
+        url: 'http://localhost:3000/api/tickets',
+        data: {
+          subject: subject,
+          comment_body: comment,
+          submitter_email: $cookies.get('zendeskUserEmail'),
+          submitter_name: $cookies.get('zendeskUserName')
+        }
       };
+
+
+      $http(createTicket).then(function successCallback(response) {
+        ZenFactory.newTicket = response.data;
+      });
+    };
 
     ZenFactory.returnTicket = function() {
       var ticketInfo = {
