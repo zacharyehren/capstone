@@ -1,30 +1,31 @@
 <table class="table table-bordered table-striped platform-spacing">
-  <div class="close-modal" ng-click="incidentsModal.closeModal()">
+  <div class="close-modal" ng-click="myTicketsModal.closeModal()">
     X
   </div>
-  <h3 class="incidents-heading">Linked Problem</h3>
+  <h3 ng-show="myTicketsModal.selectedTicket.type == 'incident'"class="incidents-heading">Linked Problem</h3>
+  <h3 ng-show="myTicketsModal.selectedTicket.type == 'problem'" class="incidents-heading">Linked Incidents</h3>
   <thead>
     <tr>
-      <th ng-click="incidentsModal.sortData('subject'); selected ='subject'">
+      <th ng-click="myTicketsModal.sortData('subject'); selected ='subject'">
         Title
-        <div ng-class="incidentsModal.sortClass" ng-show="selected == 'subject'"></div>
+        <div ng-class="myTicketsModal.sortClass" ng-show="selected == 'subject'"></div>
       </th>
-      <th ng-click="incidentsModal.sortData('username'); selected ='username'">
+      <th ng-click="myTicketsModal.sortData('username'); selected ='username'">
         Submitter
-        <div ng-class="incidentsModal.sortClass" ng-show="selected == 'username'"></div>
+        <div ng-class="myTicketsModal.sortClass" ng-show="selected == 'username'"></div>
       </th>
-      <th ng-click="incidentsModal.sortData('created_at'); selected ='created_at'">
+      <th ng-click="myTicketsModal.sortData('created_at'); selected ='created_at'">
         Date Submitted
-        <div ng-class="incidentsModal.sortClass" ng-show="selected == 'created_at'"></div>
+        <div ng-class="myTicketsModal.sortClass" ng-show="selected == 'created_at'"></div>
       </th>
-      <th ng-click="incidentsModal.sortData('updated_at'); selected = 'updated_at'">
+      <th ng-click="myTicketsModal.sortData('updated_at'); selected = 'updated_at'">
         Last Updated
-        <div ng-class="incidentsModal.sortClass" ng-show="selected == 'updated_at'"></div>
+        <div ng-class="myTicketsModal.sortClass" ng-show="selected == 'updated_at'"></div>
       </th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="incident in myTicketsModal.problemsArray">
+    <tr ng-repeat="incident in myTicketsModal.linkedTicketArray">
       <td>
         <a ui-sref="ticket" ng-click="myTicketsModal.passTicketInfo(incident.id, incident.subject)" class="ticket-title" >
             {{ incident.subject }}

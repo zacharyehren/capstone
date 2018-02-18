@@ -3,23 +3,6 @@
 
     var ZenFactory = {};
 
-    // ZenFactory.myTickets = [];
-
-    // var findMyTickets = function(ZenFactoryObject) {
-    //   var tickets = ZenFactoryObject['ticket'];
-    //   var incidents = ZenFactoryObject['incidents'];
-    //   for (var i = 0; i < tickets.length; i++) {
-    //     if (tickets[i].username == $cookies.get('zendeskUserName')) {
-    //       ZenFactory.myTickets.push(tickets[i]);
-    //     }
-    //   }
-    //   for (var p = 0; p < incidents.length; p++) {
-    //     if (incidents[p].username == $cookies.get('zendeskUserName')) {
-    //       ZenFactory.myTickets.push(incidents[p]);
-    //     }
-    //   }
-    // }
-
     var findIncidentTickets = function(ZenFactoryObject) {
       var tickets = ZenFactoryObject['ticket'];
       var incidents = ZenFactoryObject['incidents'];

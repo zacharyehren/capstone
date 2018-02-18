@@ -123,23 +123,6 @@
 
     var ZenFactory = {};
 
-    // ZenFactory.myTickets = [];
-
-    // var findMyTickets = function(ZenFactoryObject) {
-    //   var tickets = ZenFactoryObject['ticket'];
-    //   var incidents = ZenFactoryObject['incidents'];
-    //   for (var i = 0; i < tickets.length; i++) {
-    //     if (tickets[i].username == $cookies.get('zendeskUserName')) {
-    //       ZenFactory.myTickets.push(tickets[i]);
-    //     }
-    //   }
-    //   for (var p = 0; p < incidents.length; p++) {
-    //     if (incidents[p].username == $cookies.get('zendeskUserName')) {
-    //       ZenFactory.myTickets.push(incidents[p]);
-    //     }
-    //   }
-    // }
-
     var findIncidentTickets = function(ZenFactoryObject) {
       var tickets = ZenFactoryObject['ticket'];
       var incidents = ZenFactoryObject['incidents'];
@@ -523,14 +506,14 @@
 (function(){
   function MyTicketsModalCtrl($uibModal) {
 
-    this.openModal = function(ticketProblemId, ZenFactoryObject) {
+    this.openModal = function(selectedTicket, ZenFactoryObject) {
       var modalInstance = $uibModal.open({
         animation: this.animationsEnabled,
         templateUrl: '/templates/myTicketsModal.html',
         controller: 'MyTicketsModalInstanceCtrl',
         controllerAs: 'myTicketsModal',
         resolve: {
-          ticketProblemId: ticketProblemId,
+          selectedTicket: selectedTicket,
           ZenFactoryObject: ZenFactoryObject
         }
       });
@@ -543,57 +526,60 @@
 })();
 
 (function() {
-  function MyTicketsModalInstanceCtrl($uibModalInstance, ZenFactory, SortData, $cookies, ticketProblemId, ZenFactoryObject) {
+  function MyTicketsModalInstanceCtrl($uibModalInstance, ZenFactory, SortData, $cookies, selectedTicket, ZenFactoryObject) {
 
     this.sortClass = "";
     this.selected = "";
-
-    this.selectedTicket = ticketProblemId;
-    this.ZenFactoryObject = ZenFactoryObject;
-
-    // this.sortData = function(sortType) {
-    //   if (this.selected != sortType) {
-    //     this.sortClass = "";
-    //   }
-    //   this.selected = sortType;
-    //   if (this.sortClass == "" || this.sortClass == "down-carat") {
-    //     this.sortClass = "up-carat";
-    //     this.incidentsArray.sort(function(a, b) {
-    //       return a[sortType].localeCompare(b[sortType]);
-    //     });
-    //   } else if (this.sortClass == "up-carat") {
-    //     this.sortClass = "down-carat";
-    //     this.incidentsArray.sort(function(a, b) {
-    //       return b[sortType].localeCompare(a[sortType]);
-    //     });
-    //   }
-    // }
-
-    var returnProblems = function() {
-      this.problemsArray = [];
-      ZenFactory.listTickets();
-      var problems = this.ZenFactoryObject.ticket;
-      for (var i = 0; i < problems.length; i++){
-        if (this.selectedTicket == problems[i].id) {
-          this.problemsArray.push(problems[i]);
-        }
-      }
-      console.log(this.problemsArray);
-    }
-
-    returnProblems = returnProblems.bind(this);
-
-    returnProblems();
-
     this.ZenFactory = ZenFactory;
 
-    // this.ticketSubject = $cookies.get('zendeskTicketSubject');
-    //
-    // this.passTicketInfo = function(ticketId, ticketSubject) {
-    //   $cookies.put('zendeskTicketId', ticketId);
-    //   $cookies.put('zendeskTicketSubject', ticketSubject);
-    //   $uibModalInstance.close();
-    // }
+    this.selectedTicket = selectedTicket;
+    this.ZenFactoryObject = ZenFactoryObject;
+
+    this.sortData = function(sortType) {
+      if (this.selected != sortType) {
+        this.sortClass = "";
+      }
+      this.selected = sortType;
+      if (this.sortClass == "" || this.sortClass == "down-carat") {
+        this.sortClass = "up-carat";
+        this.linkedTicketArray.sort(function(a, b) {
+          return a[sortType].localeCompare(b[sortType]);
+        });
+      } else if (this.sortClass == "up-carat") {
+        this.sortClass = "down-carat";
+        this.linkedTicketArray.sort(function(a, b) {
+          return b[sortType].localeCompare(a[sortType]);
+        });
+      }
+    }
+
+    var returnLinkedTickets = function() {
+      this.linkedTicketArray = [];
+      var tickets = this.ZenFactoryObject.ticket;
+      for (var i = 0; i < tickets.length; i++) {
+        if (this.selectedTicket.type == "incident") {
+          if (this.selectedTicket.problem_id == tickets[i].id) {
+            this.linkedTicketArray.push(tickets[i]);
+          }
+        } else {
+          if (this.selectedTicket.id == tickets[i].problem_id) {
+            this.linkedTicketArray.push(tickets[i]);
+          }
+        }
+      }
+    }
+
+    returnLinkedTickets = returnLinkedTickets.bind(this);
+
+    returnLinkedTickets();
+
+    this.ticketSubject = $cookies.get('zendeskTicketSubject');
+
+    this.passTicketInfo = function(ticketId, ticketSubject) {
+      $cookies.put('zendeskTicketId', ticketId);
+      $cookies.put('zendeskTicketSubject', ticketSubject);
+      $uibModalInstance.close();
+    }
 
     this.closeModal = function() {
       $uibModalInstance.dismiss();
@@ -603,7 +589,7 @@
 
   angular
     .module('capstone')
-    .controller('MyTicketsModalInstanceCtrl', ['$uibModalInstance', 'ZenFactory', 'SortData', '$cookies', 'ticketProblemId', 'ZenFactoryObject', MyTicketsModalInstanceCtrl]);
+    .controller('MyTicketsModalInstanceCtrl', ['$uibModalInstance', 'ZenFactory', 'SortData', '$cookies', 'selectedTicket', 'ZenFactoryObject', MyTicketsModalInstanceCtrl]);
 })();
 
 (function() {
