@@ -329,15 +329,46 @@
     .controller('HomeCtrl', ['GoogleOauth', 'ZenFactory', 'SortData', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', HomeCtrl]);
 })();
 
+(function() {
+  function IndexCtrl(GoogleOauth, ZenFactory, $cookies) {
+
+    this.userSignedIn  = function() {
+      if ($cookies.get('zendeskUserEmail') != undefined) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    this.ZenFactory = ZenFactory;
+
+    this.user = $cookies.get('zendeskUserName');
+
+    this.signOut = function() {
+      GoogleOauth.signOut();
+      var cookies = $cookies.getAll();
+        angular.forEach(cookies, function (value, key) {
+          $cookies.remove(key);
+        });
+        window.location = '/';
+    };
+
+  }
+
+  angular
+    .module('capstone')
+    .controller('IndexCtrl', ['GoogleOauth', 'ZenFactory', '$cookies', IndexCtrl]);
+})();
+
 (function(){
-  function IncidentsModalCtrl($uibModal) {
+  function LinkedTicketsModalCtrl($uibModal) {
 
     this.openModal = function(ticketId, ZenFactoryObject) {
       var modalInstance = $uibModal.open({
         animation: this.animationsEnabled,
-        templateUrl: '/templates/incidentsModal.html',
-        controller: 'IncidentsModalInstanceCtrl',
-        controllerAs: 'incidentsModal',
+        templateUrl: '/templates/linkedTicketsModal.html',
+        controller: 'LinkedTicketsModalInstanceCtrl',
+        controllerAs: 'linkedTicketsModal',
         resolve: {
           selectedTicketId: ticketId,
           ZenFactoryObject: ZenFactoryObject
@@ -348,11 +379,11 @@
   }
   angular
     .module('capstone')
-    .controller('IncidentsModalCtrl', ['$uibModal', IncidentsModalCtrl]);
+    .controller('LinkedTicketsModalCtrl', ['$uibModal', LinkedTicketsModalCtrl]);
 })();
 
 (function() {
-  function IncidentsModalInstanceCtrl($uibModalInstance, ZenFactory, SortData, $cookies, selectedTicketId, ZenFactoryObject) {
+  function LinkedTicketsModalInstanceCtrl($uibModalInstance, ZenFactory, SortData, $cookies, selectedTicketId, ZenFactoryObject) {
 
     this.sortClass = "";
     this.selected = "";
@@ -419,38 +450,7 @@
 
   angular
     .module('capstone')
-    .controller('IncidentsModalInstanceCtrl', ['$uibModalInstance', 'ZenFactory', 'SortData', '$cookies', 'selectedTicketId', 'ZenFactoryObject', IncidentsModalInstanceCtrl]);
-})();
-
-(function() {
-  function IndexCtrl(GoogleOauth, ZenFactory, $cookies) {
-
-    this.userSignedIn  = function() {
-      if ($cookies.get('zendeskUserEmail') != undefined) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-
-    this.ZenFactory = ZenFactory;
-
-    this.user = $cookies.get('zendeskUserName');
-
-    this.signOut = function() {
-      GoogleOauth.signOut();
-      var cookies = $cookies.getAll();
-        angular.forEach(cookies, function (value, key) {
-          $cookies.remove(key);
-        });
-        window.location = '/';
-    };
-
-  }
-
-  angular
-    .module('capstone')
-    .controller('IndexCtrl', ['GoogleOauth', 'ZenFactory', '$cookies', IndexCtrl]);
+    .controller('LinkedTicketsModalInstanceCtrl', ['$uibModalInstance', 'ZenFactory', 'SortData', '$cookies', 'selectedTicketId', 'ZenFactoryObject', LinkedTicketsModalInstanceCtrl]);
 })();
 
 (function() {
@@ -500,100 +500,6 @@
   angular
     .module('capstone')
     .controller('MyTicketCtrl', ['GoogleOauth', 'ZenFactory', 'SortData', '$cookies', '$location', '$anchorScroll', '$scope', '$stateParams', MyTicketCtrl]);
-})();
-
-(function(){
-  function MyTicketsModalCtrl($uibModal) {
-
-    this.openModal = function(selectedTicket) {
-      var modalInstance = $uibModal.open({
-        animation: this.animationsEnabled,
-        templateUrl: '/templates/myTicketsModal.html',
-        controller: 'MyTicketsModalInstanceCtrl',
-        controllerAs: 'myTicketsModal',
-        resolve: {
-          selectedTicket: selectedTicket
-        }
-      });
-    };
-
-  }
-  angular
-    .module('capstone')
-    .controller('MyTicketsModalCtrl', ['$uibModal', MyTicketsModalCtrl]);
-})();
-
-(function() {
-  function MyTicketsModalInstanceCtrl($uibModalInstance, ZenFactory, SortData, $cookies, selectedTicket) {
-
-    this.sortClass = "";
-    this.selected = "";
-    this.ZenFactory = ZenFactory;
-
-    this.selectedTicket = selectedTicket;
-
-    this.sortData = function(sortType) {
-      if (this.selected != sortType) {
-        this.sortClass = "";
-      }
-      this.selected = sortType;
-      if (this.sortClass == "" || this.sortClass == "down-carat") {
-        this.sortClass = "up-carat";
-        this.linkedTicketArray.sort(function(a, b) {
-          return a[sortType].localeCompare(b[sortType]);
-        });
-      } else if (this.sortClass == "up-carat") {
-        this.sortClass = "down-carat";
-        this.linkedTicketArray.sort(function(a, b) {
-          return b[sortType].localeCompare(a[sortType]);
-        });
-      }
-    }
-
-    var buildLinkedTicketArray = function() {
-        this.linkedTicketArray = [];
-        var tickets = ZenFactory.unsolvedTickets.ticket;
-        var incidents = ZenFactory.unsolvedTickets.incidents;
-        if (this.selectedTicket.type == "incident") {
-          for (var i = 0; i < tickets.length; i++) {
-            if (this.selectedTicket.problem_id == tickets[i].id) {
-              this.linkedTicketArray.push(tickets[i]);
-            }
-          }
-        } else {
-          for (var i = 0; i < incidents.length; i++) {
-            if (this.selectedTicket.id == incidents[i].problem_id) {
-              this.linkedTicketArray.push(incidents[i]);
-            }
-          }
-        }
-      }
-
-    buildLinkedTicketArray = buildLinkedTicketArray.bind(this);
-
-    var returnLinkedTickets = function() {
-      ZenFactory.listTickets().then(buildLinkedTicketArray)
-    }
-
-    returnLinkedTickets();
-
-    this.ticketSubject = $cookies.get('zendeskTicketSubject');
-
-    this.passTicketInfo = function(ticketId, ticketSubject) {
-      $cookies.put('zendeskTicketId', ticketId);
-      $cookies.put('zendeskTicketSubject', ticketSubject);
-      $uibModalInstance.close();
-    }
-
-    this.closeModal = function() {
-      $uibModalInstance.dismiss();
-    };
-
-  }
-
-  angular
-    .module('capstone')
-    .controller('MyTicketsModalInstanceCtrl', ['$uibModalInstance', 'ZenFactory', 'SortData', '$cookies', 'selectedTicket', MyTicketsModalInstanceCtrl]);
 })();
 
 (function() {

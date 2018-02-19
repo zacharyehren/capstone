@@ -1,0 +1,44 @@
+<table class="table table-bordered table-striped platform-spacing">
+  <div class="close-modal" ng-click="linkedTicketsModal.closeModal()">
+    X
+  </div>
+  <h3 class="incidents-heading">Incidents</h3>
+  <thead>
+    <tr>
+      <th ng-click="linkedTicketsModal.sortData('subject'); selected ='subject'">
+        Title
+        <div ng-class="linkedTicketsModal.sortClass" ng-show="selected == 'subject'"></div>
+      </th>
+      <th ng-click="linkedTicketsModal.sortData('username'); selected ='username'">
+        Submitter
+        <div ng-class="linkedTicketsModal.sortClass" ng-show="selected == 'username'"></div>
+      </th>
+      <th ng-click="linkedTicketsModal.sortData('created_at'); selected ='created_at'">
+        Date Submitted
+        <div ng-class="linkedTicketsModal.sortClass" ng-show="selected == 'created_at'"></div>
+      </th>
+      <th ng-click="linkedTicketsModal.sortData('updated_at'); selected = 'updated_at'">
+        Last Updated
+        <div ng-class="linkedTicketsModal.sortClass" ng-show="selected == 'updated_at'"></div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="linkedTicket in linkedTicketsModal.linkedTicketArray">
+      <td>
+        <a ui-sref="ticket" ng-click="linkedTicketsModal.passTicketInfo(linkedTicket.id, linkedTicket.subject)" class="ticket-title" >
+            {{ linkedTicket.subject }}
+          </a>
+      </td>
+      <td>
+        {{ linkedTicket.username }}
+      </td>
+      <td>
+        {{ linkedTicket.created_at | date:'mediumDate' }}
+      </td>
+      <td>
+        {{ linkedTicket.updated_at | date:'mediumDate' }}
+      </td>
+    </tr>
+  </tbody>
+</table>

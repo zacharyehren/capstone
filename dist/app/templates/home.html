@@ -53,13 +53,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="ticket in home.ZenFactory.unsolvedTickets.ticket">
+    <tr ng-repeat="ticket in home.ZenFactory.unsolvedTickets.tickets">
       <td>
         <div class="incident-btn-align">
         <a ui-sref="ticket" ng-click="home.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
             {{ ticket.subject }}
           </a>
-          <button ng-show="ticket.hasIncident == true" button type="button" class="btn btn-warning incident-btn" ng-controller="IncidentsModalCtrl as incidentsModal" ng-click="incidentsModal.openModal(ticket.id, home.ZenFactory.unsolvedTickets);">This ticket has incidents</button>
+          <button ng-show="ticket.hasIncident == true" button type="button" class="btn btn-warning incident-btn" ng-controller="LinkedTicketsModalCtrl as linkedTicketsModal" ng-click="linkedTicketsModal.openModal(ticket, home.ZenFactory.unsolvedTickets);">This ticket has incidents</button>
         </div>
 
       </td>

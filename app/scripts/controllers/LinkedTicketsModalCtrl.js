@@ -1,12 +1,12 @@
 (function(){
-  function IncidentsModalCtrl($uibModal) {
+  function LinkedTicketsModalCtrl($uibModal) {
 
     this.openModal = function(ticketId, ZenFactoryObject) {
       var modalInstance = $uibModal.open({
         animation: this.animationsEnabled,
-        templateUrl: '/templates/incidentsModal.html',
-        controller: 'IncidentsModalInstanceCtrl',
-        controllerAs: 'incidentsModal',
+        templateUrl: '/templates/linkedTicketsModal.html',
+        controller: 'LinkedTicketsModalInstanceCtrl',
+        controllerAs: 'linkedTicketsModal',
         resolve: {
           selectedTicketId: ticketId,
           ZenFactoryObject: ZenFactoryObject
@@ -17,5 +17,5 @@
   }
   angular
     .module('capstone')
-    .controller('IncidentsModalCtrl', ['$uibModal', IncidentsModalCtrl]);
+    .controller('LinkedTicketsModalCtrl', ['$uibModal', LinkedTicketsModalCtrl]);
 })();

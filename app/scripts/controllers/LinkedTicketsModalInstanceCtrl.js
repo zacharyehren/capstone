@@ -1,11 +1,11 @@
 (function() {
-  function MyTicketsModalInstanceCtrl($uibModalInstance, ZenFactory, SortData, $cookies, selectedTicket) {
+  function LinkedTicketsModalInstanceCtrl($uibModalInstance, ZenFactory, SortData, $cookies, selectedTicketId, ZenFactoryObject) {
 
     this.sortClass = "";
     this.selected = "";
-    this.ZenFactory = ZenFactory;
 
-    this.selectedTicket = selectedTicket;
+    this.selectedTicket = selectedTicketId;
+    this.ZenFactoryObject = ZenFactoryObject;
 
     this.sortData = function(sortType) {
       if (this.selected != sortType) {
@@ -27,8 +27,8 @@
 
     var buildLinkedTicketArray = function() {
         this.linkedTicketArray = [];
-        var tickets = ZenFactory.unsolvedTickets.ticket;
-        var incidents = ZenFactory.unsolvedTickets.incidents;
+        var tickets = this.ZenFactoryObject.tickets;
+        var incidents = this.ZenFactoryObject.incidents;
         if (this.selectedTicket.type == "incident") {
           for (var i = 0; i < tickets.length; i++) {
             if (this.selectedTicket.problem_id == tickets[i].id) {
@@ -46,11 +46,9 @@
 
     buildLinkedTicketArray = buildLinkedTicketArray.bind(this);
 
-    var returnLinkedTickets = function() {
-      ZenFactory.listTickets().then(buildLinkedTicketArray)
-    }
+    buildLinkedTicketArray();
 
-    returnLinkedTickets();
+    this.ZenFactory = ZenFactory;
 
     this.ticketSubject = $cookies.get('zendeskTicketSubject');
 
@@ -68,5 +66,5 @@
 
   angular
     .module('capstone')
-    .controller('MyTicketsModalInstanceCtrl', ['$uibModalInstance', 'ZenFactory', 'SortData', '$cookies', 'selectedTicket', MyTicketsModalInstanceCtrl]);
+    .controller('LinkedTicketsModalInstanceCtrl', ['$uibModalInstance', 'ZenFactory', 'SortData', '$cookies', 'selectedTicketId', 'ZenFactoryObject', LinkedTicketsModalInstanceCtrl]);
 })();
