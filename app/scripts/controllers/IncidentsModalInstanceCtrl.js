@@ -14,30 +14,39 @@
       this.selected = sortType;
       if (this.sortClass == "" || this.sortClass == "down-carat") {
         this.sortClass = "up-carat";
-        this.incidentsArray.sort(function(a, b) {
+        this.linkedTicketArray.sort(function(a, b) {
           return a[sortType].localeCompare(b[sortType]);
         });
       } else if (this.sortClass == "up-carat") {
         this.sortClass = "down-carat";
-        this.incidentsArray.sort(function(a, b) {
+        this.linkedTicketArray.sort(function(a, b) {
           return b[sortType].localeCompare(a[sortType]);
         });
       }
     }
 
-    var returnIncidents = function() {
-      this.incidentsArray = [];
-      var incidents = this.ZenFactoryObject["incidents"];
-      for (var i = 0; i < incidents.length; i++){
-        if (this.selectedTicket == incidents[i].problem_id) {
-          this.incidentsArray.push(incidents[i]);
+    var buildLinkedTicketArray = function() {
+        this.linkedTicketArray = [];
+        var tickets = this.ZenFactoryObject.tickets;
+        var incidents = this.ZenFactoryObject.incidents;
+        if (this.selectedTicket.type == "incident") {
+          for (var i = 0; i < tickets.length; i++) {
+            if (this.selectedTicket.problem_id == tickets[i].id) {
+              this.linkedTicketArray.push(tickets[i]);
+            }
+          }
+        } else {
+          for (var i = 0; i < incidents.length; i++) {
+            if (this.selectedTicket.id == incidents[i].problem_id) {
+              this.linkedTicketArray.push(incidents[i]);
+            }
+          }
         }
       }
-    }
 
-    returnIncidents = returnIncidents.bind(this);
+    buildLinkedTicketArray = buildLinkedTicketArray.bind(this);
 
-    returnIncidents();
+    buildLinkedTicketArray();
 
     this.ZenFactory = ZenFactory;
 

@@ -3,17 +3,17 @@
     var sort = "";
     var selected = "";
 
-    SortData.ticketSort = function(sortType, ZenFactoryObject) {
+    SortData.ticketSort = function(sortType, ZenFactoryObject, zendeskData) {
       if (sort == "" || sort == "desc" || selected != sortType) {
         sort = "asc";
         selected = sortType;
-        // Ex: ZenFactory[myTicketData][subject].sort...
-        ZenFactory[ZenFactoryObject]['ticket'].sort(function(a, b) {
+        // Ex: ZenFactory[unsolvedTickets][subject].sort...
+        ZenFactory[ZenFactoryObject][zendeskData].sort(function(a, b) {
           return a[sortType].localeCompare(b[sortType]);
         });
       } else if (sort == "asc"){
         sort = "desc";
-        ZenFactory[ZenFactoryObject]['ticket'].sort(function(a, b) {
+        ZenFactory[ZenFactoryObject][zendeskData].sort(function(a, b) {
           return b[sortType].localeCompare(a[sortType]);
         });
       }

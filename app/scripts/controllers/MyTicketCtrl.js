@@ -10,10 +10,10 @@
       this.selected = sortType;
       if (this.sortClass == "" || this.sortClass == "down-carat") {
         this.sortClass = "up-carat";
-        SortData.ticketSort(sortType, "myTicketData");
+        SortData.ticketSort(sortType, "unsolvedTickets", "my_tickets");
       } else if (this.sortClass == "up-carat") {
         this.sortClass = "down-carat";
-        SortData.ticketSort(sortType, "myTicketData");
+        SortData.ticketSort(sortType, "unsolvedTickets", "my_tickets");
       }
     }
 
@@ -25,7 +25,7 @@
 
     myTicketsHandler = myTicketsHandler.bind(this);
 
-    ZenFactory.listMyTickets().then(myTicketsHandler);
+    ZenFactory.listTickets().then(myTicketsHandler);
 
     this.ZenFactory = ZenFactory;
 

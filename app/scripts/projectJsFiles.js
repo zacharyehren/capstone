@@ -92,17 +92,17 @@
     var sort = "";
     var selected = "";
 
-    SortData.ticketSort = function(sortType, ZenFactoryObject) {
+    SortData.ticketSort = function(sortType, ZenFactoryObject, zendeskData) {
       if (sort == "" || sort == "desc" || selected != sortType) {
         sort = "asc";
         selected = sortType;
-        // Ex: ZenFactory[myTicketData][subject].sort...
-        ZenFactory[ZenFactoryObject]['ticket'].sort(function(a, b) {
+        // Ex: ZenFactory[unsolvedTickets][subject].sort...
+        ZenFactory[ZenFactoryObject][zendeskData].sort(function(a, b) {
           return a[sortType].localeCompare(b[sortType]);
         });
       } else if (sort == "asc"){
         sort = "desc";
-        ZenFactory[ZenFactoryObject]['ticket'].sort(function(a, b) {
+        ZenFactory[ZenFactoryObject][zendeskData].sort(function(a, b) {
           return b[sortType].localeCompare(a[sortType]);
         });
       }
@@ -119,112 +119,115 @@
 })();
 
 (function() {
-  function ZenFactory($http, $cookies) {
+    function ZenFactory($http, $cookies) {
 
-    var ZenFactory = {};
+      var ZenFactory = {};
 
-    var findIncidentTickets = function(ZenFactoryObject) {
-      var tickets = ZenFactoryObject['ticket'];
-      var incidents = ZenFactoryObject['incidents'];
-      for (var i = 0; i < tickets.length; i++) {
-        for (var p = 0; p < incidents.length; p++) {
-          if (tickets[i].id == incidents[p].problem_id) {
-            tickets[i].hasIncident = true;
+      var findIncidentTickets = function(ZenFactoryObject) {
+        var tickets = ZenFactoryObject['tickets'];
+        var incidents = ZenFactoryObject['incidents'];
+        for (var i = 0; i < tickets.length; i++) {
+          for (var p = 0; p < incidents.length; p++) {
+            if (tickets[i].id == incidents[p].problem_id) {
+              tickets[i].hasIncident = true;
+            }
           }
         }
       }
-    }
 
-    ZenFactory.listTickets = function() {
-      var displayTickets = {
-        method: 'GET',
-        url: 'http://localhost:3000/api/tickets'
-      };
+        ZenFactory.listTickets = function() {
+          var displayTickets = {
+            method: 'GET',
+            url: 'http://localhost:3000/api/tickets',
+            params: {
+              username: $cookies.get('zendeskUserName')
+            }
+          };
 
-      return $http(displayTickets).then(function successCallback(response) {
-        ZenFactory.unsolvedTickets = response.data;
-        findIncidentTickets(ZenFactory.unsolvedTickets);
-      });
-    };
+          return $http(displayTickets).then(function successCallback(response) {
+            ZenFactory.unsolvedTickets = response.data;
+            findIncidentTickets(ZenFactory.unsolvedTickets);
+          });
+        };
 
-    ZenFactory.listClosedTickets = function() {
-      var displayClosedTickets = {
-        method: 'GET',
-        url: 'http://localhost:3000/api/closed_tickets'
-      };
+        ZenFactory.listClosedTickets = function() {
+          var displayClosedTickets = {
+            method: 'GET',
+            url: 'http://localhost:3000/api/closed_tickets'
+          };
 
-      return $http(displayClosedTickets).then(function successCallback(response) {
-        ZenFactory.closedTickets = response.data;
-        findIncidentTickets(ZenFactory.closedTickets);
-      });
-    };
+          return $http(displayClosedTickets).then(function successCallback(response) {
+            ZenFactory.closedTickets = response.data;
+            findIncidentTickets(ZenFactory.closedTickets);
+          });
+        };
 
-    ZenFactory.listMyTickets = function() {
-      var displayMyTickets = {
-        method: 'GET',
-        url: 'http://localhost:3000/api/my_tickets',
-        params: {
-          user_email: $cookies.get('zendeskUserEmail')
+        ZenFactory.listMyTickets = function() {
+          var displayMyTickets = {
+            method: 'GET',
+            url: 'http://localhost:3000/api/my_tickets',
+            params: {
+              user_email: $cookies.get('zendeskUserEmail')
+            }
+          };
+          return $http(displayMyTickets).then(function successCallback(response) {
+            ZenFactory.myTicketData = response.data;
+          });
+        };
+
+        ZenFactory.createTicket = function(subject, comment) {
+          var createTicket = {
+            method: 'POST',
+            url: 'http://localhost:3000/api/tickets',
+            data: {
+              subject: subject,
+              comment_body: comment,
+              submitter_email: $cookies.get('zendeskUserEmail'),
+              submitter_name: $cookies.get('zendeskUserName')
+            }
+          };
+
+
+          $http(createTicket).then(function successCallback(response) {
+            ZenFactory.newTicket = response.data;
+          });
+        };
+
+        ZenFactory.returnTicket = function() {
+          var ticketInfo = {
+            method: 'GET',
+            url: 'http://localhost:3000/api/tickets/' + $cookies.get('zendeskTicketId'),
+          }
+          return $http(ticketInfo).then(function successCallback(response) {
+            ZenFactory.ticket = response.data;
+          });
         }
-      };
-      return $http(displayMyTickets).then(function successCallback(response) {
-        ZenFactory.myTicketData = response.data;
-      });
-    };
 
-    ZenFactory.createTicket = function(subject, comment) {
-      var createTicket = {
-        method: 'POST',
-        url: 'http://localhost:3000/api/tickets',
-        data: {
-          subject: subject,
-          comment_body: comment,
-          submitter_email: $cookies.get('zendeskUserEmail'),
-          submitter_name: $cookies.get('zendeskUserName')
+        ZenFactory.createComment = function(commentBody) {
+          var createComment = {
+            method: 'POST',
+            url: 'http://localhost:3000/api/tickets/new_comment',
+            data: {
+              user_email: $cookies.get('zendeskUserEmail'),
+              comment_body: commentBody,
+              id: $cookies.get('zendeskTicketId')
+            }
+          };
+
+          $http(createComment).then(function successCallback(response) {
+            ZenFactory.newComment = response.data;
+          });
         }
+
+        return ZenFactory;
+
       };
 
 
-      $http(createTicket).then(function successCallback(response) {
-        ZenFactory.newTicket = response.data;
-      });
-    };
-
-    ZenFactory.returnTicket = function() {
-      var ticketInfo = {
-        method: 'GET',
-        url: 'http://localhost:3000/api/tickets/' + $cookies.get('zendeskTicketId'),
-      }
-      return $http(ticketInfo).then(function successCallback(response) {
-        ZenFactory.ticket = response.data;
-      });
-    }
-
-    ZenFactory.createComment = function(commentBody) {
-      var createComment = {
-        method: 'POST',
-        url: 'http://localhost:3000/api/tickets/new_comment',
-        data: {
-          user_email: $cookies.get('zendeskUserEmail'),
-          comment_body: commentBody,
-          id: $cookies.get('zendeskTicketId')
-        }
-      };
-
-      $http(createComment).then(function successCallback(response) {
-        ZenFactory.newComment = response.data;
-      });
-    }
-
-    return ZenFactory;
-
-  };
-
-
-  angular
-    .module('capstone')
-    .factory('ZenFactory', ['$http', '$cookies', ZenFactory]);
-})();
+      angular
+        .module('capstone')
+        .factory('ZenFactory', ['$http', '$cookies', ZenFactory]);
+    })();
 
 (function() {
   function ClosedTicketCtrl(GoogleOauth, ZenFactory, SortData, $cookies, $location, $anchorScroll, $scope, $stateParams) {
@@ -238,10 +241,10 @@
       this.selected = sortType;
       if (this.sortClass == "" || this.sortClass == "down-carat") {
         this.sortClass = "up-carat";
-        SortData.ticketSort(sortType, "closedTickets");
+        SortData.ticketSort(sortType, "closedTickets", "tickets");
       } else if (this.sortClass == "up-carat") {
         this.sortClass = "down-carat";
-        SortData.ticketSort(sortType, "closedTickets");
+        SortData.ticketSort(sortType, "closedTickets", "tickets");
       }
     }
 
@@ -286,10 +289,10 @@
       this.selected = sortType;
       if (this.sortClass == "" || this.sortClass == "down-carat") {
         this.sortClass = "up-carat";
-        SortData.ticketSort(sortType, "unsolvedTickets");
+        SortData.ticketSort(sortType, "unsolvedTickets", "tickets");
       } else if (this.sortClass == "up-carat") {
         this.sortClass = "down-carat";
-        SortData.ticketSort(sortType, "unsolvedTickets");
+        SortData.ticketSort(sortType, "unsolvedTickets", "tickets");
       }
     }
 
@@ -377,30 +380,39 @@
       this.selected = sortType;
       if (this.sortClass == "" || this.sortClass == "down-carat") {
         this.sortClass = "up-carat";
-        this.incidentsArray.sort(function(a, b) {
+        this.linkedTicketArray.sort(function(a, b) {
           return a[sortType].localeCompare(b[sortType]);
         });
       } else if (this.sortClass == "up-carat") {
         this.sortClass = "down-carat";
-        this.incidentsArray.sort(function(a, b) {
+        this.linkedTicketArray.sort(function(a, b) {
           return b[sortType].localeCompare(a[sortType]);
         });
       }
     }
 
-    var returnIncidents = function() {
-      this.incidentsArray = [];
-      var incidents = this.ZenFactoryObject["incidents"];
-      for (var i = 0; i < incidents.length; i++){
-        if (this.selectedTicket == incidents[i].problem_id) {
-          this.incidentsArray.push(incidents[i]);
+    var buildLinkedTicketArray = function() {
+        this.linkedTicketArray = [];
+        var tickets = this.ZenFactoryObject.tickets;
+        var incidents = this.ZenFactoryObject.incidents;
+        if (this.selectedTicket.type == "incident") {
+          for (var i = 0; i < tickets.length; i++) {
+            if (this.selectedTicket.problem_id == tickets[i].id) {
+              this.linkedTicketArray.push(tickets[i]);
+            }
+          }
+        } else {
+          for (var i = 0; i < incidents.length; i++) {
+            if (this.selectedTicket.id == incidents[i].problem_id) {
+              this.linkedTicketArray.push(incidents[i]);
+            }
+          }
         }
       }
-    }
 
-    returnIncidents = returnIncidents.bind(this);
+    buildLinkedTicketArray = buildLinkedTicketArray.bind(this);
 
-    returnIncidents();
+    buildLinkedTicketArray();
 
     this.ZenFactory = ZenFactory;
 
@@ -466,10 +478,10 @@
       this.selected = sortType;
       if (this.sortClass == "" || this.sortClass == "down-carat") {
         this.sortClass = "up-carat";
-        SortData.ticketSort(sortType, "myTicketData");
+        SortData.ticketSort(sortType, "unsolvedTickets", "my_tickets");
       } else if (this.sortClass == "up-carat") {
         this.sortClass = "down-carat";
-        SortData.ticketSort(sortType, "myTicketData");
+        SortData.ticketSort(sortType, "unsolvedTickets", "my_tickets");
       }
     }
 
@@ -481,7 +493,7 @@
 
     myTicketsHandler = myTicketsHandler.bind(this);
 
-    ZenFactory.listMyTickets().then(myTicketsHandler);
+    ZenFactory.listTickets().then(myTicketsHandler);
 
     this.ZenFactory = ZenFactory;
 
