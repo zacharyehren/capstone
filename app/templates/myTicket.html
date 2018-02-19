@@ -27,8 +27,8 @@
         <a ui-sref="ticket" ng-click="myTickets.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
             {{ ticket.subject }}
           </a>
-          <button ng-show="ticket.type == 'incident'" button type="button" class="btn btn-warning incident-btn" ng-controller="MyTicketsModalCtrl as myTicketsModal" ng-click="myTicketsModal.openModal(ticket, myTickets.ZenFactory.myTicketData);">This ticket has a root problem</button>
-          <button ng-show="ticket.has_incidents == true" button type="button" class="btn btn-warning incident-btn" ng-controller="MyTicketsModalCtrl as myTicketsModal" ng-click="myTicketsModal.openModal(ticket, myTickets.ZenFactory.myTicketData);">This ticket has incidents</button>
+          <button ng-show="ticket.type == 'incident'" button type="button" class="btn btn-warning incident-btn" ng-controller="MyTicketsModalCtrl as myTicketsModal" ng-click="myTicketsModal.openModal(ticket);">This ticket has a root problem</button>
+          <button ng-show="ticket.has_incidents == true" button type="button" class="btn btn-warning incident-btn" ng-controller="MyTicketsModalCtrl as myTicketsModal" ng-click="myTicketsModal.openModal(ticket);">This ticket has incidents</button>
       </td>
       <td>
         {{ ticket.created_at | date:'mediumDate' }}

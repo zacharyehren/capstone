@@ -506,15 +506,14 @@
 (function(){
   function MyTicketsModalCtrl($uibModal) {
 
-    this.openModal = function(selectedTicket, ZenFactoryObject) {
+    this.openModal = function(selectedTicket) {
       var modalInstance = $uibModal.open({
         animation: this.animationsEnabled,
         templateUrl: '/templates/myTicketsModal.html',
         controller: 'MyTicketsModalInstanceCtrl',
         controllerAs: 'myTicketsModal',
         resolve: {
-          selectedTicket: selectedTicket,
-          ZenFactoryObject: ZenFactoryObject
+          selectedTicket: selectedTicket
         }
       });
     };
@@ -526,14 +525,13 @@
 })();
 
 (function() {
-  function MyTicketsModalInstanceCtrl($uibModalInstance, ZenFactory, SortData, $cookies, selectedTicket, ZenFactoryObject) {
+  function MyTicketsModalInstanceCtrl($uibModalInstance, ZenFactory, SortData, $cookies, selectedTicket) {
 
     this.sortClass = "";
     this.selected = "";
     this.ZenFactory = ZenFactory;
 
     this.selectedTicket = selectedTicket;
-    this.ZenFactoryObject = ZenFactoryObject;
 
     this.sortData = function(sortType) {
       if (this.selected != sortType) {
@@ -553,23 +551,30 @@
       }
     }
 
-    var returnLinkedTickets = function() {
-      this.linkedTicketArray = [];
-      var tickets = this.ZenFactoryObject.ticket;
-      for (var i = 0; i < tickets.length; i++) {
+    var buildLinkedTicketArray = function() {
+        this.linkedTicketArray = [];
+        var tickets = ZenFactory.unsolvedTickets.ticket;
+        var incidents = ZenFactory.unsolvedTickets.incidents;
         if (this.selectedTicket.type == "incident") {
-          if (this.selectedTicket.problem_id == tickets[i].id) {
-            this.linkedTicketArray.push(tickets[i]);
+          for (var i = 0; i < tickets.length; i++) {
+            if (this.selectedTicket.problem_id == tickets[i].id) {
+              this.linkedTicketArray.push(tickets[i]);
+            }
           }
         } else {
-          if (this.selectedTicket.id == tickets[i].problem_id) {
-            this.linkedTicketArray.push(tickets[i]);
+          for (var i = 0; i < incidents.length; i++) {
+            if (this.selectedTicket.id == incidents[i].problem_id) {
+              this.linkedTicketArray.push(incidents[i]);
+            }
           }
         }
       }
-    }
 
-    returnLinkedTickets = returnLinkedTickets.bind(this);
+    buildLinkedTicketArray = buildLinkedTicketArray.bind(this);
+
+    var returnLinkedTickets = function() {
+      ZenFactory.listTickets().then(buildLinkedTicketArray)
+    }
 
     returnLinkedTickets();
 
@@ -589,7 +594,7 @@
 
   angular
     .module('capstone')
-    .controller('MyTicketsModalInstanceCtrl', ['$uibModalInstance', 'ZenFactory', 'SortData', '$cookies', 'selectedTicket', 'ZenFactoryObject', MyTicketsModalInstanceCtrl]);
+    .controller('MyTicketsModalInstanceCtrl', ['$uibModalInstance', 'ZenFactory', 'SortData', '$cookies', 'selectedTicket', MyTicketsModalInstanceCtrl]);
 })();
 
 (function() {
