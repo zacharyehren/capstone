@@ -32,7 +32,7 @@
         <a ui-sref="closedTickets" ng-if="index.userSignedIn()" class="global-options">Recently Closed Tickets</a>
       </li>
       <li>
-        <a ui-sref="newTicket" class="global-options">Create Ticket</a>
+        <a ui-sref="newTicket" ng-if="index.userSignedIn()" class="global-options">Create Ticket</a>
       </li>
     </ul>
 
