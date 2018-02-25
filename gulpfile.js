@@ -5,7 +5,8 @@ var gulp = require('gulp'),
   uglify = require('gulp-uglify'),
   rename = require('gulp-rename'),
     maps = require('gulp-sourcemaps'),
-     del = require('del');
+     del = require('del'),
+ replace = require('gulp-replace');
 
 gulp.task("concatScripts", function(){
   return gulp.src(["app/scripts/app.js",
@@ -20,6 +21,7 @@ gulp.task("concatScripts", function(){
 
 gulp.task("minifyScripts", ["concatScripts"], function(){
   return gulp.src("app/scripts/projectJsFiles.js")
+    .pipe(replace(/localhost:3000/g, "quiet-brushlands-48260.herokuapp.com"))
     .pipe(uglify())
     .pipe(rename("projectJsFiles.min.js"))
     .pipe(gulp.dest("app/scripts"));

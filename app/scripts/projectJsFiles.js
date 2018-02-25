@@ -147,6 +147,7 @@
           return $http(displayTickets).then(function successCallback(response) {
             ZenFactory.unsolvedTickets = response.data;
             findIncidentTickets(ZenFactory.unsolvedTickets);
+            console.log(ZenFactory.unsolvedTickets);
           });
         };
 
@@ -540,7 +541,6 @@
     this.createComment = function() {
       this.submitted = true;
       ZenFactory.createComment(this.commentBody);
-      location.reload();
     };
 
     // Moves view to the top of the page when selecting different tickets

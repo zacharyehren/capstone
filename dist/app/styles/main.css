@@ -194,12 +194,12 @@ th {
 }
 
 .incident-btn-align {
-  display: inline-grid;
+  display: inline-grid !important;
 }
 
 .incident-btn {
   margin-top: 5px;
-  width: 176.672px;
+  width: 120px;
 }
 
 /*ticket.html*/

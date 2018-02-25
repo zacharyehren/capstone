@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th ng-click="myTickets.sortData('subject'); selected ='subject'">
-          Title
+        Title
         <div ng-class="myTickets.sortClass" ng-show="selected == 'subject'"></div>
       </th>
       <th ng-click="myTickets.sortData('created_at'); selected = 'created_at'">
@@ -24,11 +24,13 @@
   <tbody>
     <tr ng-repeat="ticket in myTickets.ZenFactory.unsolvedTickets.my_tickets">
       <td>
-        <a ui-sref="ticket" ng-click="myTickets.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
+        <div class="incident-btn-align">
+          <a ui-sref="ticket" ng-click="myTickets.passTicketInfo(ticket.id, ticket.subject)" class="ticket-title">
             {{ ticket.subject }}
           </a>
-          <button ng-show="ticket.type == 'incident'" button type="button" class="btn btn-warning incident-btn" ng-controller="LinkedTicketsModalCtrl as linkedTicketsModal" ng-click="linkedTicketsModal.openModal(ticket, myTickets.ZenFactory.unsolvedTickets);">This ticket has a root problem</button>
-          <button ng-show="ticket.has_incidents == true" button type="button" class="btn btn-warning incident-btn" ng-controller="LinkedTicketsModalCtrl as linkedTicketsModal" ng-click="linkedTicketsModal.openModal(ticket, myTickets.ZenFactory.unsolvedTickets);">This ticket has incidents</button>
+          <button ng-show="ticket.type == 'incident'" button type="button" class="btn btn-warning incident-btn" ng-controller="LinkedTicketsModalCtrl as linkedTicketsModal" ng-click="linkedTicketsModal.openModal(ticket, myTickets.ZenFactory.unsolvedTickets);">Root problem</button>
+          <button ng-show="ticket.has_incidents == true" button type="button" class="btn btn-warning incident-btn" ng-controller="LinkedTicketsModalCtrl as linkedTicketsModal" ng-click="linkedTicketsModal.openModal(ticket, myTickets.ZenFactory.unsolvedTickets);">Incidents</button>
+        </div>
       </td>
       <td>
         {{ ticket.created_at | date:'mediumDate' }}
