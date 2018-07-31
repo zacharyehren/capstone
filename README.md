@@ -20,4 +20,4 @@ Run the application server:
 $ npm start
 ```
 
-Navigate to `http://localhost:3000` to view the portal locally.
+Navigate to `http://localhost:3001` to view the portal locally.
